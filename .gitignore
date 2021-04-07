@@ -1,0 +1,4 @@
+results/playthroughs/*.csv
+results/*.csv
+results/*.png
+src/__pycache__

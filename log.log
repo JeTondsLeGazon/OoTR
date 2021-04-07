@@ -1,0 +1,273 @@
+INFO : 11:14:24
+INFO : Successfully extracted locations from 100 files
+INFO : Seed number 1 | spoiler log no 0
+INFO : Run: 1, score: -10102, steps: 266
+INFO : Seed number 2 | spoiler log no 1000
+INFO : Run: 2, score: -9162, steps: 217
+INFO : Seed number 3 | spoiler log no 1001
+INFO : Run: 3, score: -10145, steps: 209
+INFO : Seed number 4 | spoiler log no 1002
+INFO : Run: 4, score: -22460, steps: 340
+INFO : Seed number 5 | spoiler log no 1003
+INFO : Run: 5, score: -10579, steps: 267
+INFO : Seed number 6 | spoiler log no 1004
+INFO : Run: 6, score: -30434, steps: 355
+INFO : Seed number 7 | spoiler log no 1005
+INFO : Run: 7, score: -9967, steps: 248
+INFO : Seed number 8 | spoiler log no 1006
+INFO : Run: 8, score: -9317, steps: 253
+INFO : Seed number 9 | spoiler log no 1007
+INFO : Run: 9, score: -64397, steps: 422
+INFO : Seed number 10 | spoiler log no 1008
+INFO : Run: 10, score: -12852, steps: 285
+INFO : Seed number 11 | spoiler log no 1009
+INFO : Run: 11, score: -233605, steps: 571
+INFO : Seed number 12 | spoiler log no 100
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 1), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 13 | spoiler log no 1010
+ERROR : Path not found from ZD to Queen Gohma
+INFO : Run: 13, score: -8806, steps: 262
+INFO : Seed number 14 | spoiler log no 1011
+INFO : Run: 14, score: -6740, steps: 234
+INFO : Seed number 15 | spoiler log no 1012
+INFO : Run: 15, score: -4685, steps: 168
+INFO : Seed number 16 | spoiler log no 1013
+INFO : Run: 16, score: -8277, steps: 261
+INFO : Seed number 17 | spoiler log no 1014
+INFO : Run: 17, score: -10432, steps: 254
+INFO : Seed number 18 | spoiler log no 1015
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 1), ('Water Medallion', 1), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 19 | spoiler log no 1016
+INFO : Run: 19, score: -7347, steps: 219
+INFO : Seed number 20 | spoiler log no 1017
+ERROR : Path not found from Colossus to GC Darunias Joy
+ERROR : Path not found from Spirit Temple to Kak 20 Gold Skulltula Reward
+INFO : Run: 20, score: -9847, steps: 258
+INFO : Seed number 21 | spoiler log no 1018
+INFO : Run: 21, score: -5499, steps: 228
+INFO : Seed number 22 | spoiler log no 1019
+INFO : Run: 22, score: -6992, steps: 259
+INFO : Seed number 23 | spoiler log no 101
+INFO : Run: 23, score: -6510, steps: 266
+INFO : Seed number 24 | spoiler log no 1020
+INFO : Run: 24, score: -8917, steps: 260
+INFO : Seed number 25 | spoiler log no 1021
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 26 | spoiler log no 1022
+INFO : Run: 26, score: -7500, steps: 259
+INFO : Seed number 27 | spoiler log no 1023
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 0), ('Water Medallion', 1), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 28 | spoiler log no 1024
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 1), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 29 | spoiler log no 1025
+INFO : Run: 29, score: -6422, steps: 212
+INFO : Seed number 30 | spoiler log no 1026
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 0), ('Water Medallion', 1), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 31 | spoiler log no 1027
+INFO : Run: 31, score: -5437, steps: 251
+INFO : Seed number 32 | spoiler log no 1028
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 1), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 33 | spoiler log no 1029
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 34 | spoiler log no 102
+INFO : Run: 34, score: -6894, steps: 242
+INFO : Seed number 35 | spoiler log no 1030
+INFO : Run: 35, score: -9769, steps: 265
+INFO : Seed number 36 | spoiler log no 1031
+INFO : Run: 36, score: -9379, steps: 244
+INFO : Seed number 37 | spoiler log no 1032
+INFO : Run: 37, score: -10270, steps: 268
+INFO : Seed number 38 | spoiler log no 1033
+ERROR : Path not found from ZD to Queen Gohma
+INFO : Run: 38, score: -7831, steps: 245
+INFO : Seed number 39 | spoiler log no 1034
+INFO : Run: 39, score: -30965, steps: 332
+INFO : Seed number 40 | spoiler log no 1035
+INFO : Run: 40, score: -7919, steps: 211
+INFO : Seed number 41 | spoiler log no 1036
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 1), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 42 | spoiler log no 1037
+INFO : Run: 42, score: -33700, steps: 352
+INFO : Seed number 43 | spoiler log no 1038
+INFO : Run: 43, score: -7692, steps: 261
+INFO : Seed number 44 | spoiler log no 1039
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 0), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 45 | spoiler log no 103
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 46 | spoiler log no 1040
+INFO : Run: 46, score: -6654, steps: 215
+INFO : Seed number 47 | spoiler log no 1041
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 0), ('Spirit Medallion', 0), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 48 | spoiler log no 1042
+INFO : Run: 48, score: -9149, steps: 269
+INFO : Seed number 49 | spoiler log no 1043
+INFO : Run: 49, score: -5017, steps: 211
+INFO : Seed number 50 | spoiler log no 1044
+INFO : Run: 50, score: -6475, steps: 268
+INFO : Seed number 51 | spoiler log no 1045
+INFO : Run: 51, score: -7019, steps: 214
+INFO : Seed number 52 | spoiler log no 1046
+INFO : Run: 52, score: -8067, steps: 205
+INFO : Seed number 53 | spoiler log no 1047
+INFO : Run: 53, score: -8949, steps: 266
+INFO : Seed number 54 | spoiler log no 1048
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 0), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 55 | spoiler log no 1049
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 0), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 56 | spoiler log no 104
+INFO : Run: 56, score: -2202, steps: 173
+INFO : Seed number 57 | spoiler log no 1050
+INFO : Run: 57, score: -9175, steps: 249
+INFO : Seed number 58 | spoiler log no 1051
+ERROR : Path not found from ZD to Queen Gohma
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 1), ('Water Medallion', 1), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 59 | spoiler log no 1052
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 1), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 60 | spoiler log no 1053
+ERROR : Path not found from Ice Cavern to DMC Wall Freestanding PoH
+INFO : Run: 60, score: -11799, steps: 273
+INFO : Seed number 61 | spoiler log no 1054
+INFO : Run: 61, score: -3470, steps: 147
+INFO : Seed number 62 | spoiler log no 1055
+INFO : Run: 62, score: -8777, steps: 261
+INFO : Seed number 63 | spoiler log no 1056
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 64 | spoiler log no 1057
+INFO : Run: 64, score: -5059, steps: 239
+INFO : Seed number 65 | spoiler log no 1058
+INFO : Run: 65, score: -5174, steps: 226
+INFO : Seed number 66 | spoiler log no 1059
+INFO : Run: 66, score: -8090, steps: 255
+INFO : Seed number 67 | spoiler log no 105
+INFO : Run: 67, score: -5249, steps: 269
+INFO : Seed number 68 | spoiler log no 1060
+INFO : Run: 68, score: -7264, steps: 251
+INFO : Seed number 69 | spoiler log no 1061
+ERROR : Path not found from Hyrule Castle to Song from Windmill
+INFO : Run: 69, score: -7633, steps: 209
+INFO : Seed number 70 | spoiler log no 1062
+INFO : Run: 70, score: -7284, steps: 267
+INFO : Seed number 71 | spoiler log no 1063
+INFO : Run: 71, score: -11524, steps: 251
+INFO : Seed number 72 | spoiler log no 1064
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 0), ('Water Medallion', 0), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 73 | spoiler log no 1065
+INFO : Run: 73, score: -7525, steps: 262
+INFO : Seed number 74 | spoiler log no 1066
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 1), ('Shadow Medallion', 0), ('Spirit Medallion', 0), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 75 | spoiler log no 1067
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 1), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 76 | spoiler log no 1068
+INFO : Run: 76, score: -10699, steps: 261
+INFO : Seed number 77 | spoiler log no 1069
+INFO : Run: 77, score: -8580, steps: 276
+INFO : Seed number 78 | spoiler log no 106
+INFO : Run: 78, score: -6630, steps: 223
+INFO : Seed number 79 | spoiler log no 1070
+INFO : Run: 79, score: -7420, steps: 250
+INFO : Seed number 80 | spoiler log no 1071
+INFO : Run: 80, score: -6879, steps: 228
+INFO : Seed number 81 | spoiler log no 1072
+INFO : Run: 81, score: -9770, steps: 264
+INFO : Seed number 82 | spoiler log no 1073
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 1), ('Shadow Medallion', 0), ('Spirit Medallion', 1), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 83 | spoiler log no 1074
+INFO : Run: 83, score: -9990, steps: 266
+INFO : Seed number 84 | spoiler log no 1075
+INFO : Run: 84, score: -6609, steps: 228
+INFO : Seed number 85 | spoiler log no 1076
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 1), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 86 | spoiler log no 1077
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 0), ('Water Medallion', 1), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 87 | spoiler log no 1078
+INFO : Run: 87, score: -8552, steps: 263
+INFO : Seed number 88 | spoiler log no 1079
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 89 | spoiler log no 107
+INFO : Run: 89, score: -8934, steps: 259
+INFO : Seed number 90 | spoiler log no 1080
+INFO : Run: 90, score: -9025, steps: 260
+INFO : Seed number 91 | spoiler log no 1081
+INFO : Run: 91, score: -6294, steps: 254
+INFO : Seed number 92 | spoiler log no 1082
+INFO : Run: 92, score: -6940, steps: 253
+INFO : Seed number 93 | spoiler log no 1083
+INFO : Run: 93, score: -6194, steps: 248
+INFO : Seed number 94 | spoiler log no 1084
+INFO : Run: 94, score: -7564, steps: 251
+INFO : Seed number 95 | spoiler log no 1085
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 0), ('Fire Medallion', 1), ('Water Medallion', 0), ('Shadow Medallion', 1), ('Spirit Medallion', 1), ('Light Medallion', 1)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 96 | spoiler log no 1086
+INFO : Run: 96, score: -5140, steps: 257
+INFO : Seed number 97 | spoiler log no 1087
+ERROR : No more checks available ...
+INFO : [('Forest Medallion', 1), ('Fire Medallion', 1), ('Water Medallion', 1), ('Shadow Medallion', 1), ('Spirit Medallion', 0), ('Light Medallion', 0)]
+ERROR : Invalid action, end of episode
+INFO : Seed number 98 | spoiler log no 1088
+INFO : Run: 98, score: -7522, steps: 225
+INFO : Seed number 99 | spoiler log no 1089
+INFO : Run: 99, score: -6339, steps: 240
+INFO : Seed number 100 | spoiler log no 108
+INFO : Run: 100, score: -9012, steps: 252
+INFO : Seed number 101 | spoiler log no 0
+INFO : Run: 101, score: -7770, steps: 250
+INFO : Seed number 102 | spoiler log no 1000
+INFO : Run: 102, score: -9365, steps: 260
+INFO : Seed number 103 | spoiler log no 1001
+INFO : Run: 103, score: -12760, steps: 237
+INFO : Seed number 104 | spoiler log no 1002
+ERROR : Path not found from DMT to Sheik in Crater
+ERROR : Path not found from Kak to Fire Temple Near Boss Chest
+ERROR : Path not found from SFM to Fire Temple Big Lava Room Lower Open Door Chest
+ERROR : Path not found from Graveyard to Fire Temple Flare Dancer Chest
+INFO : Run: 104, score: -8971, steps: 263
