@@ -2,3 +2,5 @@ results/playthroughs/*.csv
 results/*.csv
 results/*.png
 src/__pycache__
+__pychache__
+log.log
