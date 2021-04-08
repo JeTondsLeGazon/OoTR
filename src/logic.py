@@ -9,7 +9,7 @@ from mylog import logger
 
 mylogic = {
     "Links Pocket":                                          [],
-    "Queen Gohma":                                           [('isadult', 0)],
+    "Queen Gohma":                                           [('isadult', 0), ('Kokiri Sword', 1)],
     "King Dodongo":                                          [("Bomb Bag", 1), ('isadult', 1)],
     "Barinade":                                              [[("Progressive Scale", [1]), ("Rutos Letter", 2), ("Boomerang", 1), ('isadult', 0)], 
                                                               [("Bomb Bag", 1), ("Rutos Letter", 2), ("Boomerang", 1), ('isadult', 0), ('Zeldas Lullaby', 1)]],
@@ -120,12 +120,19 @@ mylogic = {
                                                               [('isadult', 1), ('Bomb Bag', 1)],
                                                               [('isadult', 1), ('Progressive Strength Upgrade', [1])]],
     "GC Darunias Joy":                                          [('isadult', 0), ('Zeldas Lullaby', 1), ('Sarias Song', 1)],
-    "DMC Wall Freestanding PoH":                       [[('isadult', 1), ('Bow', 1), ('Hover Boots', 1)],
+    "DMC Volcano Freestanding PoH":                       [[('isadult', 1), ('Bow', 1), ('Hover Boots', 1)],
                                                               [('isadult', 1), ('Bomb Bag', 1), ('Hover Boots', 1)],
                                                               [('isadult', 1), ('Progressive Strength Upgrade', [1]), ('Hover Boots', 1)],
                                                               [('isadult', 1), ('Magic Bean', 1), ('Bolero of Fire', 1)],
                                                               [('isadult', 1), ('Hover Boots', 1), ('Bolero of Fire', 1)]],
-    "DMC Volcano Freestanding PoH":                    [('Bomb Bag', 1)],
+    "DMC Wall Freestanding PoH":                    [[('Bomb Bag', 1)],
+                                                     [('Magic Bean', 1), ('Bolero of Fire', 1), ('isadult', 1)],
+                                                     [('isadult', 1), ('Megaton Hammer', 1)],
+                                                     [('Bolero of Fire', 1), ('isadult', 1), ('Hover Boots', 1)],
+                                                     [('Bolero of Fire', 1), ('isadult', 1), ('Progressive Hookshot', [1])],
+                                                     [('Progressive Strength Upgrade', [1]), ('isadult', 1)],
+                                                     [('Bow', 1), ('isadult', 1)],
+                                                     [('Dins Fire', 1), ('isadult', 1), ('Magic Meter', 1)]],
     "DMC Great Fairy Reward":                                   [[('isadult', 1), ('Bow', 1), ('Megaton Hammer', 1), ('Zeldas Lullaby', 1)],
                                                               [('isadult', 1), ('Bomb Bag', 1), ('Megaton Hammer', 1), ('Zeldas Lullaby', 1)],
                                                               [('isadult', 1), ('Progressive Strength Upgrade', [1]), ('Megaton Hammer', 1), ('Zeldas Lullaby', 1)],
@@ -184,13 +191,13 @@ mylogic = {
     "ZR Open Grotto Chest":                  [[('isadult', 1)],
                                                               [('isadult', 0), ('Bomb Bag', 1)],
                                                               [('isadult', 0), ('Progressive Scale', [1])]],
-    "Deku Tree Map Chest":                                 [('isadult', 0)],
-    "Deku Tree Compass Chest":                               [('isadult', 0)],
-    "Deku Tree Compass Room Side Chest":                     [('isadult', 0)],
-    "Deku Tree Basement Chest":                              [('isadult', 0)],
-    "Deku Tree Slingshot Chest":                             [('isadult', 0)],
-    "Deku Tree Slingshot Room Side Chest":                   [('isadult', 0)],
-    "Deku Tree Queen Gohma Heart":                                     [('isadult', 0)],
+    "Deku Tree Map Chest":                                 [('isadult', 0), ('Kokiri Sword', 1)],
+    "Deku Tree Compass Chest":                               [('isadult', 0), ('Kokiri Sword', 1)],
+    "Deku Tree Compass Room Side Chest":                     [('isadult', 0), ('Kokiri Sword', 1)],
+    "Deku Tree Basement Chest":                              [('isadult', 0), ('Kokiri Sword', 1)],
+    "Deku Tree Slingshot Chest":                             [('isadult', 0), ('Kokiri Sword', 1)],
+    "Deku Tree Slingshot Room Side Chest":                   [('isadult', 0), ('Kokiri Sword', 1)],
+    "Deku Tree Queen Gohma Heart":                           [('isadult', 0), ('Kokiri Sword', 1)],
     "Dodongos Cavern Map Chest":                             [[('isadult', 1), ('Bomb Bag', 1)],
                                                               [('isadult', 1), ('Megaton Hammer', 1)],
                                                               [('isadult', 1), ('Progressive Strength Upgrade', [1])]],
@@ -455,7 +462,7 @@ additionnal_actions = {
     }
 
 
-MED_BRIDGE = 4
+MED_BRIDGE = 2
 def bridge_open(nb_med_req, state):
     """
     Checks whether the bridge to GC is open according to Medallions.

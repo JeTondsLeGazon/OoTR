@@ -1,7 +1,6 @@
 """
 Pathfinder to estimate time between two zones, depending on state.
 """
-# TODO: create function has_spawn or has_access to enable access to ZD
 # TODO: use more region for access (DMC, DMT, Graveyard pad)
 
 
@@ -61,7 +60,8 @@ locations_table = [
                        [('isadult', 1), ('Progressive Strength Upgrade', [1]), ('is_where|GC', 1)],
                        [(('is_where|DMC Upper', 1))]]),
     ('DMC Lower', 'DMC Upper', 15, [[('isadult', 1), ('Hover Boots', 1)],
-                                    [('isadult', 1), ('Progressive Hookshot', [1])]]),
+                                    [('isadult', 1), ('Progressive Hookshot', [1])],
+                                    [('isadult', 1), ('Magic Bean', 1), ('is_where|DMC Lower', 1)]]),
     ('DMT', 'DMC Upper', 20, [('Bomb Bag', 1)]),
     ('DMC Lower', 'Fire Temple', 20, [('isadult', 1)]),
     ('Market', 'Hyrule Castle', 30, [('isadult', 0)]),
@@ -266,7 +266,6 @@ locations_to_zones = {
                  "GC Rolling Goron as Adult",
                  "GC Darunias Joy"],
     'DMC Upper':     ["DMC Wall Freestanding PoH",
-                      "DMC Volcano Freestanding PoH",
                       "DMC Great Fairy Reward",
                       "DMC Upper Grotto Chest"],
     'DMC Lower':    ["DMC Volcano Freestanding PoH",  # twice

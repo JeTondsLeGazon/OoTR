@@ -15,7 +15,7 @@ from gym.utils import seeding
 from src.logic import get_logic, bool_logic, get_additionnal_actions, get_additionnal_logic
 from src.state import State
 from src.pathfinder import PathFinder, locations_to_zones
-from src.bonus_malus import compute_bonus
+from src.bonus_malus import compute_bonus, compute_malus
 from mylog import logger, setup_csv_logger
 
 from collections import deque
@@ -23,10 +23,10 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
 import random
-from time import perf_counter
+
 
 ABS_PATH = os.path.abspath('.')
-REP = 2
+REP = 1
 NO_EXPLORATION = 10
 
 # useful: https://gsurma.medium.com/cartpole-introduction-to-reinforcement-learning-ed0eb5b58288
@@ -80,9 +80,10 @@ class OotrEnv():
         self.last_action.append(action)
         
         #Calculate path
-        start_time = perf_counter()
         reward, path = self.pathfinder.from_to(self.state.where, self.pathfinder.convert_to_region(action), self.state)
-        elapsed_time = perf_counter() - start_time
+        
+        #Calculate malus
+        malus = compute_malus(self.state, action)
         
         if action in get_logic().keys():
             if action == 'Market 10 Big Poes':  # special case
@@ -132,6 +133,7 @@ class OotrEnv():
             malus = self.last_action[:-1].count('Time Travel')*4
             if self.last_action[-2] == 'Time Travel':
                 malus += 50
+        
         if reward == -1:
             logger.error(f'Path not found from {self.state.where} to {action}')
         
@@ -146,7 +148,7 @@ class OotrEnv():
         log.info(f"{self.nb_actions},{action},{found_item},{reward},{bonus},{malus},{' -> '.join(path)}")
 
 
-        reward = -reward + bonus - malus  # TODO bonus malus reward function
+        reward = -reward + bonus - malus
             
         return self.observation, reward, done, (action, found_item)
             
@@ -233,7 +235,7 @@ class DQNSolver:
         
         self.get_stuck = False
         self.step = 0
-        self.previous_action = None
+        #self.previous_action = None
 
     def remember(self, state, action, reward, next_state, done, checks_done, next_state_raw):
         self.memory.append((state, action, reward, next_state, done, checks_done, next_state_raw))
@@ -287,6 +289,7 @@ class DQNSolver:
         q_values = q_values + self.q_value_correction(env.state, env.already_done())
         return np.argmax(q_values[0])
 
+
     def experience_replay(self):
         if len(self.memory) < BATCH_SIZE:  #Warmup
             return
@@ -312,8 +315,8 @@ def train(dataset, starting_ages, spawns, no_logs):
     run = 0
     sums_of_rewards = []
     
-    #for f in os.listdir(os.path.join(ABS_PATH, 'results/playthroughs')):
-    #    os.remove(os.path.join(ABS_PATH, 'results/playthroughs', f))
+    for f in os.listdir(os.path.join(ABS_PATH, 'results/playthroughs')):
+        os.remove(os.path.join(ABS_PATH, 'results/playthroughs', f))
         
         
     for rep in range(REP):  # add Tqdr
@@ -330,7 +333,6 @@ def train(dataset, starting_ages, spawns, no_logs):
             while True:
                 #env.render()
                 action = dqn_solver.act(state, env, env.already_done(), rep)
-                dqn_solver.previous_action = action
                 if action < 0:
                     logger.error('Invalid action, end of episode')
                     break

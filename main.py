@@ -14,8 +14,8 @@ path_bis = 'D:/Weekly_de_m/'
 
 def main():
     # Fetch data
-    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=100)
-    #n=3
+    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=20)
+    #n=11
     #dataset, ages, spawns, no_logs = [dataset[n]], [ages[n]], [spawns[n]], [no_logs[n]]
     sums_of_rewards = train(dataset, ages, spawns, no_logs)
     plot(sums_of_rewards)
