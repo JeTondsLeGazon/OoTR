@@ -19,7 +19,7 @@ from src.bonus_malus import compute_bonus, compute_malus
 from mylog import logger, setup_csv_logger
 
 from collections import deque
-from keras.models import Sequential
+from keras.models import Sequential, load_model
 from keras.layers import Dense
 from keras.optimizers import Adam
 import random
@@ -218,30 +218,59 @@ MEMORY_INTERVAL = 20
 
 EXPLORATION_MAX = 0.10
 
+
 class DQNSolver:
-    def __init__(self, observation_space, action_space):
+    def __init__(self, observation_space, action_space, model_path):
         self.exploration_rate = EXPLORATION_MAX
 
         self.action_space = action_space
         self.memory = deque(maxlen=MEMORY_SIZE)
         
         self.q_value_evolution = []
-        
-        self.model = Sequential()
-        self.model.add(Dense(128, input_shape=(observation_space,), activation="relu"))
-        self.model.add(Dense(256, activation="relu"))
-        self.model.add(Dense(self.action_space, activation="linear"))
-        self.model.compile(loss="mse", optimizer=Adam(lr=LEARNING_RATE))
+
+        self.model_path = model_path
+        self.model = self.init_model(observation_space, action_space, model_path)
         
         self.get_stuck = False
         self.step = 0
-        #self.previous_action = None
 
     def remember(self, state, action, reward, next_state, done, checks_done, next_state_raw):
         self.memory.append((state, action, reward, next_state, done, checks_done, next_state_raw))
-    
-    
-    def compute_possible_action(self, state, done_checks):
+
+    def save_model(self):
+        """
+        Saves the model at the end of the training.
+        """
+        self.model.save(self.model_path)
+        logger.info(f'Model saved under {self.model_path}')
+
+    @staticmethod
+    def init_model(input_size, output_size, path):
+        """
+        Creates or loads a keras neural network model for deep Q learning.
+
+        input_size(int): size of the input layer
+        output_size(int): size of the output layer
+        path(string): where to find the model to load.
+        """
+        def create_model(input_size, output_size):
+            m = Sequential()
+            m.add(Dense(128, input_shape=(input_size,), activation="relu"))
+            m.add(Dense(256, activation="relu"))
+            m.add(Dense(output_size, activation="linear"))
+            m.compile(loss="mse", optimizer=Adam(lr=LEARNING_RATE))
+            return m
+
+        try:
+            model = load_model(path)
+            logger.info('Loaded model NN.h5')
+        except:
+            logger.warning('Could not load model NN.h5, creating a new model instead')
+            model = create_model(input_size, output_size)
+        return model
+
+    @staticmethod
+    def compute_possible_action(state, done_checks):
         """
         Returns a truth array for possible and impossible actions
         
@@ -261,8 +290,7 @@ class DQNSolver:
         """
         possible_actions = self.compute_possible_action(state, done_checks)
         return [-math.inf if not x else 0 for x in possible_actions.astype(bool)]
-        
-    
+
     def act(self, state_rl, env, already_done, exploration_ind):
         """
         
@@ -289,9 +317,8 @@ class DQNSolver:
         q_values = q_values + self.q_value_correction(env.state, env.already_done())
         return np.argmax(q_values[0])
 
-
     def experience_replay(self):
-        if len(self.memory) < BATCH_SIZE:  #Warmup
+        if len(self.memory) < BATCH_SIZE:  # Warmup
             return
         
         if self.step % MEMORY_INTERVAL == 0:
@@ -306,19 +333,18 @@ class DQNSolver:
                 self.model.fit(state, q_values, verbose=0)
         
         
-def train(dataset, starting_ages, spawns, no_logs):
+def train(dataset, starting_ages, spawns, no_logs, model_path):
     env = OotrEnv()
     observation_space = env.observation_space.shape[0]
     action_space = env.action_space.n
-    dqn_solver = DQNSolver(observation_space, action_space)
+    dqn_solver = DQNSolver(observation_space, action_space, model_path)
     
     run = 0
     sums_of_rewards = []
     
     for f in os.listdir(os.path.join(ABS_PATH, 'results/playthroughs')):
         os.remove(os.path.join(ABS_PATH, 'results/playthroughs', f))
-        
-        
+
     for rep in range(REP):  # add Tqdr
         print(f'Repetion number {rep+1}')
         for locations, age, spawn, no_log in tqdm(zip(dataset, starting_ages, spawns, no_logs)):
@@ -331,7 +357,7 @@ def train(dataset, starting_ages, spawns, no_logs):
             state = env.reset(locations, age, spawn)
             state = np.reshape(state, [1, observation_space])
             while True:
-                #env.render()
+                # env.render()
                 action = dqn_solver.act(state, env, env.already_done(), rep)
                 if action < 0:
                     logger.error('Invalid action, end of episode')
@@ -355,5 +381,5 @@ def train(dataset, starting_ages, spawns, no_logs):
             q_values = pd.DataFrame(np.array(dqn_solver.q_value_evolution), columns=list(get_logic().keys())+list(env.additional_actions.keys()))
             q_values.to_csv(os.path.join(ABS_PATH, 'results/q_values_log.csv'), header=True)
             sums_of_rewards.append(sum_of_rewards)
-            
+    dqn_solver.save_model()
     return sums_of_rewards

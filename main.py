@@ -11,13 +11,14 @@ from src.ai import train
 
 PATH = 'D:/OoTR_dataset/'
 path_bis = 'D:/Weekly_de_m/'
+model_path = 'NN.h5'
 
 def main():
     # Fetch data
     dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=20)
     #n=11
     #dataset, ages, spawns, no_logs = [dataset[n]], [ages[n]], [spawns[n]], [no_logs[n]]
-    sums_of_rewards = train(dataset, ages, spawns, no_logs)
+    sums_of_rewards = train(dataset, ages, spawns, no_logs, model_path)
     plot(sums_of_rewards)
     
 def plot(scores):
