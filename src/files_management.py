@@ -71,7 +71,7 @@ def extract_spawn(spoiler_logs, ages):
     return [[xx['region'] if isinstance(xx, dict) else xx for xx in x] for x in spawns]
 
 
-def extract_logs(path, n=1000):
+def extract_logs(path, n=1000, from_=0, to=1000):
     """
     Extracts items location from n spoiler log files and return list of dict.
     
@@ -79,6 +79,7 @@ def extract_logs(path, n=1000):
     n (int): maximum number of files to extract
     Returns: list of dict
     """
+    assert from_ < to, 'from_ must be smaller than to'
     json_files = list_files(path=path)
     nb_files = n if n <= len(json_files) else len(json_files)
     json_files = json_files[:nb_files]
@@ -90,4 +91,4 @@ def extract_logs(path, n=1000):
     starting_spawn = extract_spawn(spoiler_logs, starting_age)
     no_logs = [f.split('-')[-1].split('_Spoiler')[0] for f in json_files]
     logger.info(f"Successfully extracted locations from {len(locations)} files")
-    return locations, starting_age, starting_spawn, no_logs
+    return locations[from_:to], starting_age[from_:to], starting_spawn[from_:to], no_logs[from_:to]
