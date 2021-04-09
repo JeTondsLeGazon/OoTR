@@ -7,20 +7,22 @@ import logging
 
 import matplotlib.pyplot as plt
 from src.files_management import extract_logs
-from src.ai import train
+from src.ai import run
 
 PATH = 'D:/OoTR_dataset/'
-path_bis = 'D:/Weekly_de_m/'
 model_path = 'NN.h5'
+MODE = 'test'
+
 
 def main():
     # Fetch data
-    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=20)
+    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=1)
     #n=11
     #dataset, ages, spawns, no_logs = [dataset[n]], [ages[n]], [spawns[n]], [no_logs[n]]
-    sums_of_rewards = train(dataset, ages, spawns, no_logs, model_path)
+    sums_of_rewards = run(dataset, ages, spawns, no_logs, model_path, MODE)
     plot(sums_of_rewards)
-    
+
+
 def plot(scores):
     plt.figure(figsize=(15, 7))
     plt.plot(range(len(scores)), [-s for s in scores])
@@ -34,5 +36,5 @@ if __name__ == '__main__':
     try:
         main()
         logging.shutdown()
-    except:
+    except KeyboardInterrupt:
         logging.shutdown()

@@ -26,11 +26,12 @@ import random
 
 
 ABS_PATH = os.path.abspath('.')
-REP = 1
-NO_EXPLORATION = 10
+REP = 5
+NO_EXPLORATION = 20
+
 
 # useful: https://gsurma.medium.com/cartpole-introduction-to-reinforcement-learning-ed0eb5b58288
-class OotrEnv():
+class OotrEnv:
     """
     OoTR Environment
     The goal is to create the required environment for a OoTR optimal path 
@@ -68,7 +69,6 @@ class OotrEnv():
     
     def step(self, action, logger_name):
         bonus = 0
-        malus = 5
         log = logging.getLogger(logger_name)
         self.nb_actions += 1
 
@@ -136,7 +136,6 @@ class OotrEnv():
         
         if reward == -1:
             logger.error(f'Path not found from {self.state.where} to {action}')
-        
 
         self.state.where = self.pathfinder.convert_to_region(action)
         self.observation = self.calculate_state_observation()
@@ -147,12 +146,11 @@ class OotrEnv():
         
         log.info(f"{self.nb_actions},{action},{found_item},{reward},{bonus},{malus},{' -> '.join(path)}")
 
-
+        # Update reward with bonus and malus
         reward = -reward + bonus - malus
             
         return self.observation, reward, done, (action, found_item)
-            
-    
+
     def initialise_from_log(self, age, spawn):
         """
         Initialises state according to spoiler log.
@@ -162,7 +160,7 @@ class OotrEnv():
         self.state.set_child_spawn(PathFinder.convert_spawn_to_region(spawn[0]))
         self.state.set_adult_spawn(PathFinder.convert_spawn_to_region(spawn[1]))
         
-        #starting song
+        # starting song
         loc = ["Song from Saria", "Sheik in Forest", "Song from Ocarina of Time", 
         "Sheik at Colossus", "Sheik at Temple", "Sheik in Kakariko", "Song from Windmill", 
         "Song from Composers Grave", "Sheik in Crater", "Song from Malon", "Sheik in Ice Cavern"]
@@ -172,8 +170,6 @@ class OotrEnv():
         songs_in_log = [self.locations[l] for l in loc if self.locations[l] in songs]
         start_song = list(set(songs)-set(songs_in_log))
         self.state.item_update(start_song[0])
-        #print(age, spawn[age], start_song)
-    
     
     def calculate_state_observation(self, blank=False, upper_bound=False):
         """
@@ -190,8 +186,7 @@ class OotrEnv():
             where = np.binary_repr(regions.index(self.state.where), binary_width)
         state.extend([int(s) for s in where])
         return np.array(state)
-    
-    
+
     def reset(self, locations, age, spawn):
         self.state = State()
         self.checks_done= []
@@ -216,12 +211,15 @@ MEMORY_SIZE = 1000000
 BATCH_SIZE = 20
 MEMORY_INTERVAL = 20
 
-EXPLORATION_MAX = 0.10
+EXPLORATION_MAX = 0.15
 
 
 class DQNSolver:
-    def __init__(self, observation_space, action_space, model_path):
-        self.exploration_rate = EXPLORATION_MAX
+    def __init__(self, observation_space, action_space, model_path, mode):
+        if mode == 'train':
+            self.exploration_rate = EXPLORATION_MAX
+        else:
+            self.exploration_rate = 0
 
         self.action_space = action_space
         self.memory = deque(maxlen=MEMORY_SIZE)
@@ -333,20 +331,28 @@ class DQNSolver:
                 self.model.fit(state, q_values, verbose=0)
         
         
-def train(dataset, starting_ages, spawns, no_logs, model_path):
+def run(dataset, starting_ages, spawns, no_logs, model_path, mode='train'):
+    assert mode in ['test', 'train']
     env = OotrEnv()
     observation_space = env.observation_space.shape[0]
     action_space = env.action_space.n
-    dqn_solver = DQNSolver(observation_space, action_space, model_path)
+    dqn_solver = DQNSolver(observation_space, action_space, model_path, mode)
     
     run = 0
     sums_of_rewards = []
-    
-    for f in os.listdir(os.path.join(ABS_PATH, 'results/playthroughs')):
-        os.remove(os.path.join(ABS_PATH, 'results/playthroughs', f))
 
-    for rep in range(REP):  # add Tqdr
-        print(f'Repetion number {rep+1}')
+    # Output path
+    results_path = 'results'
+    output_path = os.path.join(results_path, 'playthroughs')
+    if not os.path.isdir(results_path):
+        os.mkdir(results_path)
+    if not os.path.isdir(output_path):
+        os.mkdir(output_path)
+
+    for f in os.listdir(os.path.join(ABS_PATH, output_path)):
+        os.remove(os.path.join(ABS_PATH, output_path, f))
+
+    for rep in range(REP):
         for locations, age, spawn, no_log in tqdm(zip(dataset, starting_ages, spawns, no_logs)):
             playthrough = os.path.join(ABS_PATH, f'results/playthroughs/playthrough_{no_log}_{rep}.csv')
             setup_csv_logger(f'playthrough_{no_log}_{rep}', playthrough)
@@ -376,10 +382,11 @@ def train(dataset, starting_ages, spawns, no_logs, model_path):
                 if terminal:
                     logger.info(f"Run: {run}, score: {sum_of_rewards}, steps: {dqn_solver.step}")
                     break
-
-                dqn_solver.experience_replay()
-            q_values = pd.DataFrame(np.array(dqn_solver.q_value_evolution), columns=list(get_logic().keys())+list(env.additional_actions.keys()))
-            q_values.to_csv(os.path.join(ABS_PATH, 'results/q_values_log.csv'), header=True)
+                if mode == 'train':  # no learning when testing
+                    dqn_solver.experience_replay()
+            if mode == 'train':
+                q_values = pd.DataFrame(np.array(dqn_solver.q_value_evolution), columns=list(get_logic().keys())+list(env.additional_actions.keys()))
+                q_values.to_csv(os.path.join(ABS_PATH, 'results/q_values_log.csv'), header=True)
             sums_of_rewards.append(sum_of_rewards)
     dqn_solver.save_model()
     return sums_of_rewards
