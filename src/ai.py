@@ -22,12 +22,13 @@ from collections import deque
 from keras.models import Sequential, load_model
 from keras.layers import Dense
 from keras.optimizers import Adam
+import tensorflow as tf
 import random
 
 
 ABS_PATH = os.path.abspath('.')
-REP = 5
-NO_EXPLORATION = 20
+REP = 1
+NO_EXPLORATION = 10000
 
 
 # useful: https://gsurma.medium.com/cartpole-introduction-to-reinforcement-learning-ed0eb5b58288
@@ -82,7 +83,7 @@ class OotrEnv:
         #Calculate path
         reward, path = self.pathfinder.from_to(self.state.where, self.pathfinder.convert_to_region(action), self.state)
         
-        #Calculate malus
+        # Calculate malus
         malus = compute_malus(self.state, action)
         
         if action in get_logic().keys():
@@ -106,7 +107,7 @@ class OotrEnv:
                 self.state.item_update(found_item)
 
             elif found_item in self.trade_items:  # adult trade sequence
-                for _ in range(self.trade_items.index(found_item)):
+                for _ in range(self.trade_items.index(found_item) + 1):
                     self.state.item_update('adult trade sequence')
                     
             
@@ -131,7 +132,7 @@ class OotrEnv:
         #TODO: incorporate this into a reward_calculating function
         if action == 'Time Travel':
             malus = self.last_action[:-1].count('Time Travel')*4
-            if self.last_action[-2] == 'Time Travel':
+            if len(self.last_action) >= 2 and self.last_action[-2] == 'Time Travel':
                 malus += 50
         
         if reward == -1:
@@ -204,7 +205,7 @@ class OotrEnv:
         return [1 if x in self.checks_done else 0 for x in get_logic().keys()]
 
 
-GAMMA = 0.9
+GAMMA = 0.95
 LEARNING_RATE = 0.001
 
 MEMORY_SIZE = 1000000
@@ -332,61 +333,62 @@ class DQNSolver:
         
         
 def run(dataset, starting_ages, spawns, no_logs, model_path, mode='train'):
-    assert mode in ['test', 'train']
-    env = OotrEnv()
-    observation_space = env.observation_space.shape[0]
-    action_space = env.action_space.n
-    dqn_solver = DQNSolver(observation_space, action_space, model_path, mode)
-    
-    run = 0
-    sums_of_rewards = []
+    with tf.device('/GPU:0'):
+        assert mode in ['test', 'train']
+        env = OotrEnv()
+        observation_space = env.observation_space   .shape[0]
+        action_space = env.action_space.n
+        dqn_solver = DQNSolver(observation_space, action_space, model_path, mode)
 
-    # Output path
-    results_path = 'results'
-    output_path = os.path.join(results_path, 'playthroughs')
-    if not os.path.isdir(results_path):
-        os.mkdir(results_path)
-    if not os.path.isdir(output_path):
-        os.mkdir(output_path)
+        run = 0
+        sums_of_rewards = []
 
-    for f in os.listdir(os.path.join(ABS_PATH, output_path)):
-        os.remove(os.path.join(ABS_PATH, output_path, f))
+        # Output path
+        results_path = 'results'
+        output_path = os.path.join(results_path, 'playthroughs')
+        if not os.path.isdir(results_path):
+            os.mkdir(results_path)
+        if not os.path.isdir(output_path):
+            os.mkdir(output_path)
 
-    for rep in range(REP):
-        for locations, age, spawn, no_log in tqdm(zip(dataset, starting_ages, spawns, no_logs)):
-            playthrough = os.path.join(ABS_PATH, f'results/playthroughs/playthrough_{no_log}_{rep}.csv')
-            setup_csv_logger(f'playthrough_{no_log}_{rep}', playthrough)
-            sum_of_rewards = 0
-            dqn_solver.step = 0
-            run += 1
-            logger.info(f'Seed number {run} | spoiler log no {no_log}')
-            state = env.reset(locations, age, spawn)
-            state = np.reshape(state, [1, observation_space])
-            while True:
-                # env.render()
-                action = dqn_solver.act(state, env, env.already_done(), rep)
-                if action < 0:
-                    logger.error('Invalid action, end of episode')
-                    break
-                state_next, reward, terminal, info = env.step(action, f'playthrough_{no_log}_{rep}')
-                reward = reward if not terminal else 600
-                sum_of_rewards += reward
-                state_next = np.reshape(state_next, [1, observation_space])
-                if dqn_solver.step >= 700:
-                    reward = -500
+        for f in os.listdir(os.path.join(ABS_PATH, output_path)):
+            os.remove(os.path.join(ABS_PATH, output_path, f))
+
+        for rep in range(REP):
+            for locations, age, spawn, no_log in tqdm(zip(dataset, starting_ages, spawns, no_logs)):
+                playthrough = os.path.join(ABS_PATH, f'results/playthroughs/playthrough_{no_log}_{rep}.csv')
+                setup_csv_logger(f'playthrough_{no_log}_{rep}', playthrough)
+                sum_of_rewards = 0
+                dqn_solver.step = 0
+                run += 1
+                logger.info(f'Seed number {run} | spoiler log no {no_log}')
+                state = env.reset(locations, age, spawn)
+                state = np.reshape(state, [1, observation_space])
+                while True:
+                    # env.render()
+                    action = dqn_solver.act(state, env, env.already_done(), rep)
+                    if action < 0:
+                        logger.error('Invalid action, end of episode')
+                        break
+                    state_next, reward, terminal, info = env.step(action, f'playthrough_{no_log}_{rep}')
+                    reward = reward if not terminal else 600
+                    sum_of_rewards += reward
+                    state_next = np.reshape(state_next, [1, observation_space])
+                    if dqn_solver.step >= 700:
+                        reward = -500
+                        dqn_solver.remember(state, action, reward, state_next, terminal, env.already_done(), env.state)
+                        logger.warning('Too many steps, end of episode')
+                        break
                     dqn_solver.remember(state, action, reward, state_next, terminal, env.already_done(), env.state)
-                    logger.warning('Too many steps, end of episode')
-                    break
-                dqn_solver.remember(state, action, reward, state_next, terminal, env.already_done(), env.state)
-                state = state_next
-                if terminal:
-                    logger.info(f"Run: {run}, score: {sum_of_rewards}, steps: {dqn_solver.step}")
-                    break
-                if mode == 'train':  # no learning when testing
-                    dqn_solver.experience_replay()
-            if mode == 'train':
-                q_values = pd.DataFrame(np.array(dqn_solver.q_value_evolution), columns=list(get_logic().keys())+list(env.additional_actions.keys()))
-                q_values.to_csv(os.path.join(ABS_PATH, 'results/q_values_log.csv'), header=True)
-            sums_of_rewards.append(sum_of_rewards)
-    dqn_solver.save_model()
-    return sums_of_rewards
+                    state = state_next
+                    if terminal:
+                        logger.info(f"Run: {run}, score: {sum_of_rewards}, steps: {dqn_solver.step}")
+                        break
+                    if mode == 'train':  # no learning when testing
+                        dqn_solver.experience_replay()
+                if mode == 'train':
+                    q_values = pd.DataFrame(np.array(dqn_solver.q_value_evolution), columns=list(get_logic().keys())+list(env.additional_actions.keys()))
+                    q_values.to_csv(os.path.join(ABS_PATH, 'results/q_values_log.csv'), header=True)
+                sums_of_rewards.append(sum_of_rewards)
+        dqn_solver.save_model()
+        return sums_of_rewards
