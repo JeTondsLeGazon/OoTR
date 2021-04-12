@@ -2,7 +2,7 @@
 Pathfinder to estimate time between two zones, depending on state.
 """
 # TODO: use more region for access (DMC, DMT, Graveyard pad)
-
+# TODO: castle grounds may be both adult and child !!!
 
 from src.logic import requirements_in_logic
 from mylog import logger
@@ -59,7 +59,8 @@ locations_table = [
     ('DMC Upper', 'GC', 20, [[('isadult', 1), ('Bomb Bag', 1), ('is_where|GC', 1)],
                        [('isadult', 1), ('Bow', 1), ('is_where|GC', 1)],
                        [('isadult', 1), ('Progressive Strength Upgrade', [1]), ('is_where|GC', 1)],
-                       [(('is_where|DMC Upper', 1))]]),
+                       [('is_where|DMC Upper', 1)],
+                       [('isadult', 1), ('Dins Fire', 1), ('Magic Meter', 1), ('is_where|GC', 1)]]),
     ('DMC Lower', 'DMC Upper', 15, [[('isadult', 1), ('Hover Boots', 1)],
                                     [('isadult', 1), ('Progressive Hookshot', [1])],
                                     [('isadult', 1), ('Magic Bean', 1), ('is_where|DMC Lower', 1)]]),

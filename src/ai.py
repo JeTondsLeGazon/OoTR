@@ -59,7 +59,7 @@ class OotrEnv:
         self.last_action = []
         self.pathfinder = None
         
-        self.trade_items = ['Prescription', 'Eyeball Frog', 'Eye Drops', 'Claim Check']
+        self.trade_items = ['Prescription', 'Eyeball Frog', 'Eyedrops', 'Claim Check']
         self.seed()
     
     
