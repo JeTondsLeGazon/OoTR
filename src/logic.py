@@ -18,7 +18,7 @@ mylogic = {
     "Morpha":                                                [('isadult', 1), ('Progressive Hookshot', 2), ('Boss Key (Water Temple)', 1)],
     "Bongo Bongo":                                           [[('isadult', 1), ('Hover Boots', 1), ('Bomb Bag', 1), ("Small Key (Shadow Temple)", [5]), ('Progressive Hookshot', 1), ('Zeldas Lullaby', 1), ('Bow', 1), ('Boss Key (Shadow Temple)', 1)],
                                                               [('isadult', 1), ('Hover Boots', 1), ('Bomb Bag', 1), ("Small Key (Shadow Temple)", [5]), ('Progressive Hookshot', 2), ('Zeldas Lullaby', 1), ('Boss Key (Shadow Temple)', 1)]],
-    "Twinrova":                                              [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [5]), ('Mirror Shield', 1), ('Progressive Hookshot', [1]), ('Bomb Bag', 1), ('Boss Key (Spirit Temple)', 1), ('has_access|Spirit', 1)],
+    "Twinrova":                                              [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [5]), ('Mirror Shield', 1), ('Progressive Hookshot', [1]), ('Bomb Bag', 1), ('Boss Key (Spirit Temple)', 1), ('Fba|Spirit', 1)],
     "Song from Saria":                                       [('isadult', 0)],
     "Sheik in Forest":                                     [('isadult', 1)],
     "Song from Ocarina of Time":                             [('Kokiri Emerald', 1), ('Goron Ruby', 1), ('Zora Sapphire', 1), ('isadult', 0)],
@@ -372,7 +372,7 @@ mylogic = {
                                                               [('Small Key (Spirit Temple)', [1]), ('Boomerang', 1), ('Bow', 1), ('has_access|Spirit', 1)],
                                                               [('Small Key (Spirit Temple)', [1]), ('Boomerang', 1), ('Progressive Hookshot', [1]), ('has_access|Spirit', 1)],
                                                               [('Small Key (Spirit Temple)', [1]), ('Slingshot', 1), ('Bow', 1), ('has_access|Spirit', 1)],
-                                                              [('Small Key (Spirit Temple)', [1]), ('Slingshot', 1), ('Progressive Hookshot', [1])], ('has_access|Spirit', 1)],
+                                                              [('Small Key (Spirit Temple)', [1]), ('Slingshot', 1), ('Progressive Hookshot', [1]), ('has_access|Spirit', 1)]],
     "Spirit Temple Compass Chest":                           [("has_access|Spirit", 1), ('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Zeldas Lullaby', 1), ('Progressive Hookshot', [1])],
     "Spirit Temple Early Adult Right Chest":                 [[("has_access|Spirit", 1), ('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Bomb Bag', 1)],
                                                               [("has_access|Spirit", 1), ('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Bow', 1)],
@@ -396,7 +396,7 @@ mylogic = {
                                                               [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [3]), ('Zeldas Lullaby', 1), ('Hover Boots', 1), ('has_access|Spirit', 1)]],
     "Spirit Temple Silver Gauntlets Chest":                                [[('Small Key (Spirit Temple)', [3]), ('Progressive Strength Upgrade', [2]), ('isadult', 1), ('Progressive Hookshot', 2)],
                                                               [('Small Key (Spirit Temple)', 5), ('has_access|Spirit', 1)]],
-    "Spirit Temple Mirror Shield Chest":                                   [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [4]), ('Bomb Bag', 1), ('has_access|Spirit', 1)],
+    "Spirit Temple Mirror Shield Chest":                     [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [4]), ('Bomb Bag', 1), ('has_access|Spirit', 1)],
     "Spirit Temple Near Four Armos Chest":                   [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [4]), ('Bomb Bag', 1), ('Mirror Shield', 1), ('has_access|Spirit', 1)],
     "Spirit Temple Hallway Left Invisible Chest":            [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [4]), ('Bomb Bag', 1), ('has_access|Spirit', 1)],
     "Spirit Temple Hallway Right Invisible Chest":           [('isadult', 1), ('Progressive Strength Upgrade', [2]), ('Small Key (Spirit Temple)', [4]), ('Bomb Bag', 1), ('has_access|Spirit', 1)],
@@ -506,7 +506,7 @@ def has_access(zone, state) -> bool:
         if isinstance(dungeons_acess[zone][0], tuple):
             return requirements_in_logic(state, dungeons_acess[zone])
         else:
-            return any([requirements_in_logic(state,rr) for rr in dungeons_acess[zone]])
+            return any([requirements_in_logic(state, rr) for rr in dungeons_acess[zone]])
     
     elif zone == 'Biggoron':
         req = [[('Bolero of Fire', 1), ('Progressive Hookshot', [1]), ('isadult', 1)],
