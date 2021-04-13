@@ -80,18 +80,22 @@ class OotrEnv:
         
         self.last_action.append(action)
         
-        #Calculate path
+        # Calculate path
         reward, path = self.pathfinder.from_to(self.state.where, self.pathfinder.convert_to_region(action), self.state)
-        
+
         # Calculate malus
         malus = compute_malus(self.state, action)
-        
+
+        # Skull update
+        if self.nb_actions % 9 == 0:  # TODO: better implementation
+            self.state.item_update('Gold Skulltula Token')
+            self.state.item_update('Gold Skulltula Token')
+            self.state.item_update('Gold Skulltula Token')
+            self.state.item_update('Gold Skulltula Token')
+
         if action in get_logic().keys():
             if action == 'Market 10 Big Poes':  # special case
                 self.state.item_update('Bottle')
-            
-            if self.nb_actions % 3 == 0:  # TODO: better implementation
-                self.state.item_update('Gold Skulltula Token')
                 
             found_item = self.locations[action]
             if isinstance(found_item, dict):  # When bought items
