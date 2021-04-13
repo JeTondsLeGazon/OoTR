@@ -158,8 +158,8 @@ class OotrEnv:
         """
         self.state.where = PathFinder.convert_spawn_to_region(spawn[age])
         self.state.set_age(age)
-        self.state.set_child_spawn(PathFinder.convert_spawn_to_region(spawn[0]), 0)
-        self.state.set_adult_spawn(PathFinder.convert_spawn_to_region(spawn[1]), 1)
+        self.state.set_child_spawn(PathFinder.convert_spawn_to_region(spawn[0], 0))
+        self.state.set_adult_spawn(PathFinder.convert_spawn_to_region(spawn[1], 1))
         
         # starting song
         loc = ["Song from Saria", "Sheik in Forest", "Song from Ocarina of Time", 
