@@ -360,7 +360,7 @@ spawns = {'Market': 'Market',
           'Temple of Time': 'Temple of Time',
            'Market Entrance': 'Market',
            'Lost Woods': 'LW',
-           'Castle Grounds': 'Hyrule Castle',
+           'Castle Grounds': ['Hyrule Castle', 'Outside Ganons Castle'],
            'Graveyard': 'Graveyard',
            'ToT Entrance': 'Market',
            'Zora River': 'ZR',
@@ -430,7 +430,7 @@ spawns = {'Market': 'Market',
            }
 
 
-class PathFinder():
+class PathFinder:
     
     def __init__(self, state):
         self.locations_table = locations_table.copy()
@@ -448,14 +448,16 @@ class PathFinder():
         return ''
     
     @staticmethod
-    def convert_spawn_to_region(place):
+    def convert_spawn_to_region(place, age=0):
         try:
-            return spawns[place]
+            if place == 'Castle Grounds':
+                return spawns[place][age]
+            else:
+                return spawns[place]
         except:
             logger.error(f'No spawn found at {place}')
             return ''
-    
-    
+
     def savewarp(self, state):
         """
         Returns an array input from anywhere to the savewarp zone.
