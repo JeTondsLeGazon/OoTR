@@ -1,11 +1,11 @@
 from mylog import logger
 
 # Free Scarecrow
-# No reverse Wasteland
 # Automatic Bean plantation everywhere upon purchase
 # Rupies not taken into account
 # Time of day always favorable
 # Skulltulas incrementely updated
+# KZ skip, Mido skip, Reversed Wasteland are possible
 
 mylogic = {
     "Links Pocket":                                          [],
@@ -576,7 +576,7 @@ def requirements_in_logic(state, requirements, where=None) -> bool:
 
 def requirement_in_logic(state, requirement, number, where=None) -> bool:
     """
-    Returns if the requirement is fullfilled by the state or not.
+    Returns if the requirement is fulfilled by the state or not.
     
     state(State): state of the player
     requirement(str): name of the status to check
