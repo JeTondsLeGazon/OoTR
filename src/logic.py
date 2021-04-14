@@ -310,7 +310,7 @@ mylogic = {
     "Water Temple Dragon Chest":                             [[('isadult', 1), ("Small Key (Water Temple)", [5]), ('Bow', 1)],
                                                               [('isadult', 1), ("Small Key (Water Temple)", [5]), ('Iron Boots', 1)],
                                                               [('isadult', 1), ('Progressive Strength Upgrade', [1]), ("has_access|Water", 1), ('Zeldas Lullaby', 1)]],
-    "Water Temple Central Pillar Chest":                     [('isadult', 1), ('Iron Boots', 1), ('Zeldas Lullaby', 1)],
+    "Water Temple Central Pillar Chest":                     [('isadult', 1), ('Iron Boots', 1), ('Zeldas Lullaby', 1), ('has_access|Water', 1)],
     "Water Temple Longshot Chest":                          [('isadult', 1), ("Small Key (Water Temple)", [5])],
     "Water Temple River Chest":                              [('isadult', 1), ("Small Key (Water Temple)", [5]), ('Song of Time', 1), ('Bow', 1)],
     "Shadow Temple Map Chest":                               [('isadult', 1), ("has_access|Shadow", 1)],

@@ -13,11 +13,11 @@ PATH = 'D:/OoTR_dataset/'
 model_path = 'NN.h5'
 MODE = 'train'
 
-# TODO: train from 400 ++
+# TODO: train from 550 ++
 
 def main():
     # Fetch data
-    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=1000, from_=400, to=500)
+    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=1000, from_=500, to=550)
     sums_of_rewards = run(dataset, ages, spawns, no_logs, model_path, MODE)
     plot(sums_of_rewards)
 
