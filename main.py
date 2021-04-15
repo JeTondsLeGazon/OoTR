@@ -17,7 +17,7 @@ MODE = 'train'
 
 def main():
     # Fetch data
-    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=1000, from_=700, to=850)
+    dataset, ages, spawns, no_logs = extract_logs(path=PATH, n=1000, from_=850, to=1000)
     sums_of_rewards = run(dataset, ages, spawns, no_logs, model_path, MODE)
     plot(sums_of_rewards)
 
