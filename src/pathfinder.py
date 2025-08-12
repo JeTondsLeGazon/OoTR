@@ -1,12 +1,11 @@
-"""
-Pathfinder to estimate time between two zones, depending on state.
-"""
 # TODO: use more region for access (DMC, DMT, Graveyard pad)
 # TODO: castle grounds may be both adult and child !!!
 
 from src.logic import requirements_in_logic
 from mylog import logger
 import json
+
+from state import State
 
 with open("resources/location_tables.json", "r") as f:
     locations_table = json.load(f)
@@ -19,7 +18,11 @@ with open("resources/spawns.json", "r") as f:
 
 
 class PathFinder:
-    def __init__(self, state):
+    """
+    Pathfinder to estimate time necessary to move from one zone to another, depending on the player's state.
+    """
+
+    def __init__(self, state: State):
         self.locations_table = locations_table.copy()
         self.locations_to_zones = locations_to_zones
         self.locations_table.extend(self.savewarp(state))
@@ -29,7 +32,7 @@ class PathFinder:
             5,
             [("Requiem of Spirit", 1)],
         ) in self.locations_table:
-            print("Oups")
+            raise ValueError("Weird location")
         self.locations_table.extend(self.songwarp())
 
     def convert_to_region(self, place):
@@ -41,16 +44,20 @@ class PathFinder:
 
     @staticmethod
     def convert_spawn_to_region(place, age=0):
-        try:
-            if place == "Castle Grounds":
-                return spawns[place][age]
-            else:
-                return spawns[place]
-        except:
-            logger.error(f"No spawn found at {place}")
+        region = spawns.get(place)
+        if region is None:
+            logger.error(f"No spawn found for place {place}")
             return ""
 
-    def savewarp(self, state):
+        if isinstance(region, dict):
+            if age not in region:
+                logger.error(f"No spawn found for place {place} at age {age}")
+                return ""
+            return region[age]
+
+        return region
+
+    def savewarp(self, state: State):
         """
         Returns an array input from anywhere to the savewarp zone.
         """
@@ -70,19 +77,20 @@ class PathFinder:
             ("anywhere", "Temple of Time", 5, [("Prelude of Light", 1)]),
         ]
 
-    def from_to(self, a, b, state):
+    # TODO: maybe map locations to enum?
+    def from_to(self, from_location: str, to_location: str, state: State):
         """
-        Returns the smallest time necessary from a to b given a state.
+        Returns the smallest time necessary from a location A to a location B, given the current player's state.
         """
         paths = []
-        new_paths = [[[a], 0]]
+        new_paths = [[[from_location], 0]]
         while True:
             paths = new_paths.copy()
             new_paths.clear()
             for path, t_tot in paths:
                 if len(path) > 12:
                     continue
-                if path[-1] == b:
+                if path[-1] == to_location:
                     new_paths.append([path, t_tot])
                     if t_tot == min([t for _, t in paths]):
                         return [t_tot, path]
@@ -114,19 +122,26 @@ class PathFinder:
                     new_path.append(n)
                     new_paths.append([new_path, t_tot + t])
             if all(
-                [p_[-1] == b for p_, _ in new_paths]
+                [p_[-1] == to_location for p_, _ in new_paths]
             ):  # termination if all paths end in b
                 break
         return (
             min([[t, p] for p, t in new_paths]) if len(new_paths) != 0 else [-1, []]
         )  # return minimum time
 
-    def in_logic(self, state, req, where):
-        if len(req) == 0:
+    def in_logic(
+        self, state: State, requirements: list[list], current_location: str
+    ) -> bool:
+        if len(requirements) == 0:
             return True
 
-        elif isinstance(req[0], tuple):  # Only one logic possible
-            return requirements_in_logic(state, req, where)
+        # Only one logic possible
+        if len(requirements) == 1:
+            return requirements_in_logic(state, requirements[0], current_location)
 
-        else:  # Many logics possible
-            return any([requirements_in_logic(state, rr, where) for rr in req])
+        return any(
+            [
+                requirements_in_logic(state, requirement, current_location)
+                for requirement in requirements
+            ]
+        )

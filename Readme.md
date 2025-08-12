@@ -36,3 +36,10 @@ To speed up the generation, you use loops (bash) or directly in the code in `OoT
 
 ### Settings
 Default settings from website (Tournament S8): BSAWDNCAX2TB2WCHGAB3L62ANEBSAAAACAASAAAASK7CAAEAUJJASCAJXAAAJADSB4SHAEALV6WL7RANADKWLYAABAEZAAB6VCC2AQGAEGWDGB8AAACACEJGUBC
+
+
+
+## Resources
+This project contains a lot of resources linked to the game and its logic, items, locations, etc.
+
+- items_pool: list of all items that can unlock checks with their respective upgrades. Each item is represented as (item name, maximum state number, initial state)

@@ -1,18 +1,6 @@
-"""
-Test script for logic.py file
-"""
-
 import unittest
-import sys
-import logging
-from datetime import datetime
-import os
 from time import perf_counter as pc
 
-sys.path.append("..")
-LOG = "error_log.log"
-
-sys.path.insert(0, os.getcwd()[:-6])
 from src.pathfinder import PathFinder
 from src.state import State
 
@@ -195,14 +183,3 @@ class Optimization(unittest.TestCase):
         ETA = pc() - time_a
         print(f"ETA from {a} to {b}: {ETA:.4f}")
         self.assertLessEqual(ETA, 2)
-
-
-if __name__ == "__main__":
-    try:
-        logging.basicConfig(filename=LOG, filemode="w")
-        logger = logging.getLogger()
-        logger.setLevel(0)
-        logger.info(datetime.now().strftime("%H:%M:%S"))
-        unittest.main()
-    except:
-        logging.shutdown()

@@ -106,7 +106,7 @@ def bool_logic(state: State, logic: dict) -> list[bool]:
     return [check in checks_in_logic for check in logic]
 
 
-def requirements_in_logic(state, requirements, where=None) -> bool:
+def requirements_in_logic(state: State, requirements: list[str], where=None) -> bool:
     """
     Returns whether the requirements list is fullfilled by state or not.
 
@@ -124,7 +124,9 @@ def requirements_in_logic(state, requirements, where=None) -> bool:
         return False
 
 
-def requirement_in_logic(state, requirement, number, where=None) -> bool:
+def requirement_in_logic(
+    state: State, requirement: str, number, current_location: str = None
+) -> bool:
     """
     Returns if the requirement is fulfilled by the state or not.
 
@@ -154,7 +156,7 @@ def requirement_in_logic(state, requirement, number, where=None) -> bool:
         function_name, param = requirement.split("|")
         try:
             if function_name == "is_where":
-                return is_where(param, where)
+                return is_where(param, current_location)
             else:
                 return globals()[function_name](param, state)
         except Exception as e:
