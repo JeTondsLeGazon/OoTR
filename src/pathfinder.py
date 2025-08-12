@@ -63,8 +63,8 @@ class PathFinder:
         """
 
         return [
-            ("anywhere", state.child_spawn, 10, [("isadult", 0)]),
-            ("anywhere", state.adult_spawn, 10, [("isadult", 1)]),
+            ("anywhere", state.child_spawn_location, 10, [("isadult", 0)]),
+            ("anywhere", state.adult_spawn_location, 10, [("isadult", 1)]),
         ]
 
     def songwarp(self):

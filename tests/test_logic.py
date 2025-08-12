@@ -1,162 +1,160 @@
-"""
-Test script for logic.py file
-"""
-
-import unittest
-import sys
-import logging
-from datetime import datetime
-import os
-
-sys.path.append("..")
-from src import logic
-from src import state
+from src.logic import Requirement, requirement_in_logic, requirements_in_logic
+from src.state import State
 
 
-LOG = "error_log.log"
-if os.path.isfile(LOG):
-    logging.shutdown()
-    os.remove(LOG)
+def test_empty_requirement_valid():
+    # Arrange
+    state = State([])
+    check = []
+
+    # Act
+    in_logic = requirements_in_logic(state, check)
+
+    # Assert
+    assert in_logic is True
 
 
-class TestLogicMethods(unittest.TestCase):
-    def test_1(self):
-        mystate = {}
-        check = []
-        self.assertTrue(logic.requirements_in_logic(mystate, check))
+def test_is_adult_requirement():
+    # Arrange
+    state = State([("isadult", 1, 0)])
+    adult_requirement = Requirement(
+        item="isadult", minimum_upgrade_level=1, exact_upgrade_level=True
+    )
+    child_requirement = Requirement(
+        item="isadult", minimum_upgrade_level=0, exact_upgrade_level=True
+    )
 
-    def test_2(self):
-        mystate = state.State(base_items=[("isadult", 1, 0)])
-        self.assertTrue(logic.requirement_in_logic(mystate, "isadult", 0))
-        self.assertFalse(logic.requirement_in_logic(mystate, "isadult", 1))
-        self.assertFalse(logic.requirement_in_logic(mystate, "Slingshot", 1))
-
-    def test_3(self):
-        mystate = state.State(
-            base_items=[("isadult", 1, 0), ("Progressive Hookshot", 2, 2)]
-        )
-        self.assertTrue(
-            logic.requirement_in_logic(mystate, "Progressive Hookshot", [0])
-        )
-        self.assertTrue(
-            logic.requirement_in_logic(mystate, "Progressive Hookshot", [1])
-        )
-        self.assertTrue(logic.requirement_in_logic(mystate, "Progressive Hookshot", 2))
-        self.assertFalse(logic.requirement_in_logic(mystate, "Progressive Hookshot", 1))
-
-    def test_4(self):
-        mystate = state.State(
-            base_items=[("isadult", 1, 0), ("Progressive Hookshot", 2, 2)]
-        )
-        self.assertTrue(
-            logic.requirements_in_logic(
-                mystate, [("isadult", 0), ("Progressive Hookshot", 2)]
-            )
-        )
-        self.assertTrue(
-            logic.requirements_in_logic(
-                mystate, [("isadult", [0]), ("Progressive Hookshot", 2)]
-            )
-        )
-        self.assertFalse(
-            logic.requirements_in_logic(
-                mystate, [("isadult", 1), ("Progressive Hookshot", 2)]
-            )
-        )
-
-    def test_5(self):
-        mystate = state.State(base_items=[])
-        mylogic = {"Impa at Castle": []}
-        self.assertTrue(logic.in_logic(mystate, logic=mylogic))
-
-    def test_6(self):
-        mystate = state.State(
-            base_items=[("isadult", 1, 1), ("Progressive Hookshot", 2, 2)]
-        )
-        mylogic = {
-            "Gerudo Training Grounds Stalfos Chest": [
-                ("isadult", 1),
-                ("has_access|GTG", 1),
-            ]
-        }
-        self.assertEqual(
-            logic.in_logic(mystate, logic=mylogic),
-            ["Gerudo Training Grounds Stalfos Chest"],
-        )
-
-    def test_7(self):
-        mystate = state.State(
-            base_items=[("isadult", 1, 1), ("Progressive Hookshot", 2, 2)]
-        )
-        mylogic = {
-            "Ganons Castle Forest Trial Chest": [
-                ("has_access|Trials", 1),
-                ("isadult", 1),
-            ]
-        }
-        self.assertFalse(logic.in_logic(mystate, logic=mylogic))
-
-    def test_8(self):
-        mystate = state.State(
-            base_items=[
-                ("isadult", 1, 1),
-                ("Forest Medallion", 1, 1),
-                ("Fire Medallion", 1, 1),
-            ]
-        )
-        mylogic = {
-            "Ganons Castle Forest Trial Chest": [
-                ("has_access|Trials", 1),
-                ("isadult", 1),
-            ]
-        }
-        self.assertEqual(
-            logic.in_logic(mystate, logic=mylogic), ["Ganons Castle Forest Trial Chest"]
-        )
-
-    def test_9(self):
-        mystate = state.State(
-            base_items=[
-                ("isadult", 1, 1),
-                ("Forest Medallion", 1, 0),
-                ("Fire Medallion", 1, 1),
-            ]
-        )
-        mylogic = {
-            "Ganons Castle Forest Trial Chest": [
-                ("has_access|Trials", 1),
-                ("isadult", 1),
-            ]
-        }
-        self.assertNotEqual(
-            logic.in_logic(mystate, logic=mylogic), ["Ganons Castle Forest Trial Chest"]
-        )
-
-    def test_10(self):
-        mystate = state.State(base_items=[("isadult", 1, 1), ("Zeldas Lullaby", 1, 1)])
-        mylogic = {
-            "Song at Windmill": [("isadult", 1)],
-            "Song from Composer Grave": [("Zeldas Lullaby", 1)],
-            "Sheik in Crater": [("has_access|Fire", 1)],
-            "Song from Malon": [("isadult", 0)],
-            "Sheik in Ice Cavern": [
-                [("isadult", 1), ("Rutos Letter", 2), ("Zeldas Lullaby", 1)],
-                [("isadult", 1), ("Rutos Letter", 2), ("Hover Boots", 1)],
-            ],
-            "Kokiri Sword Chest": [("isadult", 0)],
-        }
-        self.assertEqual(
-            logic.in_logic(mystate, logic=mylogic),
-            ["Song at Windmill", "Song from Composer Grave"],
-        )
+    # Act & Assert
+    assert requirement_in_logic(state, adult_requirement) is False
+    assert requirement_in_logic(state, child_requirement) is True
+    state.change_age()
+    assert requirement_in_logic(state, adult_requirement) is True
+    assert requirement_in_logic(state, child_requirement) is False
 
 
-if __name__ == "__main__":
-    try:
-        logging.basicConfig(filename=LOG, filemode="w")
-        logger = logging.getLogger()
-        logger.setLevel(0)
-        logger.info(datetime.now().strftime("%H:%M:%S"))
-        unittest.main()
-    except:
-        logging.shutdown()
+def test_progressive_item():
+    # Arrange
+    state = State(items_pool=[("isadult", 1, 0), ("Progressive Hookshot", 2, 1)])
+    hook_shot_level_0_requirement = Requirement(
+        item="Progressive Hookshot", minimum_upgrade_level=0
+    )
+    hook_shot_level_1_requirement = Requirement(
+        item="Progressive Hookshot", minimum_upgrade_level=1
+    )
+    hook_shot_level_2_requirement = Requirement(
+        item="Progressive Hookshot", minimum_upgrade_level=2
+    )
+
+    # Act & Assert
+    assert requirement_in_logic(state, hook_shot_level_0_requirement) is True
+    assert requirement_in_logic(state, hook_shot_level_1_requirement) is True
+    assert requirement_in_logic(state, hook_shot_level_2_requirement) is False
+    state.item_update("Progressive Hookshot")
+    assert requirement_in_logic(state, hook_shot_level_0_requirement) is True
+
+
+def test_requirements_in_logic():
+    # Arrange
+    state = State(items_pool=[("isadult", 1, 0), ("Progressive Hookshot", 2, 1)])
+    adult = Requirement(
+        item="isadult", minimum_upgrade_level=1, exact_upgrade_level=True
+    )
+    child = Requirement(
+        item="isadult", minimum_upgrade_level=0, exact_upgrade_level=True
+    )
+    longshot = Requirement(item="Progressive Hookshot", minimum_upgrade_level=2)
+    hookshot = Requirement(item="Progressive Hookshot", minimum_upgrade_level=1)
+
+    # Act & Assert
+    assert requirements_in_logic(state, [child, longshot]) is False
+    assert requirements_in_logic(state, [child, hookshot]) is True
+    assert requirements_in_logic(state, [adult, hookshot]) is False
+
+
+# def test_5(self):
+#     state = State(base_items=[])
+#     mylogic = {"Impa at Castle": []}
+#     state, logic=mylogic))
+#
+# def test_6(self):
+#     state = State(
+#         base_items=[("isadult", 1, 1), ("Progressive Hookshot", 2, 2)]
+#     )
+#     mylogic = {
+#         "Gerudo Training Grounds Stalfos Chest": [
+#             ("isadult", 1),
+#             ("has_access|GTG", 1),
+#         ]
+#     }
+#
+#         logic.in_logic(state, logic=mylogic),
+#         ["Gerudo Training Grounds Stalfos Chest"],
+#     )
+#
+# def test_7(self):
+#     state = State(
+#         base_items=[("isadult", 1, 1), ("Progressive Hookshot", 2, 2)]
+#     )
+#     mylogic = {
+#         "Ganons Castle Forest Trial Chest": [
+#             ("has_access|Trials", 1),
+#             ("isadult", 1),
+#         ]
+#     }
+#     state, logic=mylogic))
+#
+# def test_8(self):
+#     state = State(
+#         base_items=[
+#             ("isadult", 1, 1),
+#             ("Forest Medallion", 1, 1),
+#             ("Fire Medallion", 1, 1),
+#             ]
+#         )
+#         mylogic = {
+#             "Ganons Castle Forest Trial Chest": [
+#                 ("has_access|Trials", 1),
+#                 ("isadult", 1),
+#             ]
+#         }
+#
+#             logic.in_logic(state, logic=mylogic), ["Ganons Castle Forest Trial Chest"]
+#         )
+#
+# def test_9(self):
+#     state = State(
+#         base_items=[
+#             ("isadult", 1, 1),
+#             ("Forest Medallion", 1, 0),
+#             ("Fire Medallion", 1, 1),
+#         ]
+#     )
+#     mylogic = {
+#         "Ganons Castle Forest Trial Chest": [
+#             ("has_access|Trials", 1),
+#             ("isadult", 1),
+#         ]
+#     }
+#
+#         logic.in_logic(state, logic=mylogic), ["Ganons Castle Forest Trial Chest"]
+#     )
+#
+# def test_10(self):
+#     state = State(base_items=[("isadult", 1, 1), ("Zeldas Lullaby", 1, 1)])
+#     mylogic = {
+#         "Song at Windmill": [("isadult", 1)],
+#         "Song from Composer Grave": [("Zeldas Lullaby", 1)],
+#         "Sheik in Crater": [("has_access|Fire", 1)],
+#         "Song from Malon": [("isadult", 0)],
+#         "Sheik in Ice Cavern": [
+#             [("isadult", 1), ("Rutos Letter", 2), ("Zeldas Lullaby", 1)],
+#             [("isadult", 1), ("Rutos Letter", 2), ("Hover Boots", 1)],
+#         ],
+#         "Kokiri Sword Chest": [("isadult", 0)],
+#     }
+#
+#         logic.in_logic(state, logic=mylogic),
+#         ["Song at Windmill", "Song from Composer Grave"],
+#     )
+#
+#

@@ -1,7 +1,10 @@
+from typing import Callable
 from mylog import logger
 import json
 
-from state import State
+from src.state import State
+from pathlib import Path
+from dataclasses import dataclass
 
 # Free Scarecrow
 # Automatic Bean plantation everywhere upon purchase
@@ -12,10 +15,18 @@ from state import State
 # TODO: load logic according to settings, check randomizer repo. This whole file should not exist
 
 
+@dataclass
+class Requirement:
+    item: str | None = None
+    action: Callable | None = None
+    minimum_upgrade_level: int = 0
+    exact_upgrade_level: bool = False
+
+
 MED_BRIDGE = 2
 
-
-with open("resources/dungeons_access.json", "r") as f:
+here = Path(__file__).parent
+with open(here / ".." / "resources" / "dungeons_acess.json", "r") as f:
     dungeons_acess = json.load(f)
 
 
@@ -106,62 +117,31 @@ def bool_logic(state: State, logic: dict) -> list[bool]:
     return [check in checks_in_logic for check in logic]
 
 
-def requirements_in_logic(state: State, requirements: list[str], where=None) -> bool:
-    """
-    Returns whether the requirements list is fullfilled by state or not.
-
-    state(State): state of the player
-    requirement(list): list of requirements in the form of tuples.
-    where(str): location of the player
-    """
-    try:
-        for requirement, num in requirements:
-            if not requirement_in_logic(state, requirement, num, where):
-                return False
-        return True
-    except:
-        logger.error(f"Set of requirements: {requirements} badly formated")
-        return False
+def requirements_in_logic(state: State, requirements: list[Requirement]) -> bool:
+    return all(
+        [requirement_in_logic(state, requirement) for requirement in requirements]
+    )
 
 
 def requirement_in_logic(
-    state: State, requirement: str, number, current_location: str = None
+    state: State,
+    requirement: Requirement,
 ) -> bool:
     """
-    Returns if the requirement is fulfilled by the state or not.
-
-    state(State): state of the player
-    requirement(str): name of the status to check
-    number(int or list): exact or minimum state number to return True
-    where(str): location of the player
+    Returns whether or not the requirement is satisfied by the state or not.
     """
+    if requirement.item is not None:
+        minimum_upgrade_level = requirement.minimum_upgrade_level
+        return (
+            state.items[requirement.item].current_progression >= minimum_upgrade_level
+            if not requirement.exact_upgrade_level
+            else state.items[requirement.item].current_progression
+            == minimum_upgrade_level
+        )
+    if requirement.action is None:
+        return True
 
-    if requirement in state.items:
-        if isinstance(number, int):
-            return state.items[requirement]["current"] == number
-        else:  # should be a list
-            try:
-                return state.items[requirement]["current"] >= number[0]
-            except Exception as e:
-                logger.error(
-                    f"Unable to check requirement for check {requirement}due to {e}"
-                )
-                return False
-
-    else:
-        if "|" not in requirement:
-            logger.error(f"Requirement {requirement} not in correct form")
-            return False
-
-        function_name, param = requirement.split("|")
-        try:
-            if function_name == "is_where":
-                return is_where(param, current_location)
-            else:
-                return globals()[function_name](param, state)
-        except Exception as e:
-            logger.error(e)
-            return False
+    return requirement.action(state)
 
 
 def get_logic():
