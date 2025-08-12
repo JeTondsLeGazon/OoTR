@@ -1,0 +1,302 @@
+{
+    "GTG": [
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                2
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Eponas Song",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "has_spawn|GV GF Side",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "has_spawn|GF",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Requiem of Spirit",
+                1
+            ]
+        ]
+    ],
+    "Fire": [
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Bolero of Fire",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Hover Boots",
+                1
+            ],
+            [
+                "Bomb Bag",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Hover Boots",
+                1
+            ],
+            [
+                "Megaton Hammer",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                [
+                    1
+                ]
+            ],
+            [
+                "Bomb Bag",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                [
+                    1
+                ]
+            ],
+            [
+                "Bow",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Hover Boots",
+                1
+            ],
+            [
+                "Bow",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Hover Boots",
+                1
+            ],
+            [
+                "Progressive Strength Upgrade",
+                [
+                    1
+                ]
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                [
+                    1
+                ]
+            ],
+            [
+                "Progressive Strength Upgrade",
+                [
+                    1
+                ]
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                2
+            ],
+            [
+                "Megaton Hammer",
+                1
+            ]
+        ]
+    ],
+    "Water": [
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Progressive Scale",
+                2
+            ],
+            [
+                "Progressive Hookshot",
+                2
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Iron Boots",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                [
+                    1
+                ]
+            ]
+        ]
+    ],
+    "Shadow": [
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Nocturne of Shadow",
+                1
+            ],
+            [
+                "Dins Fire",
+                1
+            ],
+            [
+                "Magic Meter",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                [
+                    1
+                ]
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Nocturne of Shadow",
+                1
+            ],
+            [
+                "Dins Fire",
+                1
+            ],
+            [
+                "Magic Meter",
+                1
+            ],
+            [
+                "Hover Boots",
+                1
+            ]
+        ]
+    ],
+    "Spirit": [
+        [
+            [
+                "Requiem of Spirit",
+                1
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Progressive Hookshot",
+                2
+            ]
+        ],
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "Eponas Song",
+                1
+            ]
+        ],
+        [
+            [
+                "has_access|GTG",
+                1
+            ]
+        ]
+    ]
+}

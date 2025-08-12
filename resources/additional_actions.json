@@ -1,0 +1,215 @@
+{
+    "Time Travel": [
+        [],
+        "change_age"
+    ],
+    "Deliver RL": [
+        [
+            [
+                [
+                    "Rutos Letter",
+                    1
+                ],
+                [
+                    "isadult",
+                    0
+                ],
+                [
+                    "Progressive Scale",
+                    [
+                        1
+                    ]
+                ]
+            ],
+            [
+                [
+                    "Rutos Letter",
+                    1
+                ],
+                [
+                    "isadult",
+                    0
+                ],
+                [
+                    "Bomb Bag",
+                    1
+                ]
+            ],
+            [
+                [
+                    "Rutos Letter",
+                    1
+                ],
+                [
+                    "isadult",
+                    0
+                ],
+                [
+                    "has_spawn|ZD",
+                    1
+                ]
+            ]
+        ],
+        [
+            "item_update|Rutos Letter",
+            "item_update|Bottle"
+        ]
+    ],
+    "Child Trade Sequence 1": [
+        [
+            [
+                "isadult",
+                0
+            ],
+            [
+                "child trade sequence",
+                0
+            ]
+        ],
+        "item_update|child trade sequence"
+    ],
+    "Child Trade Sequence 2": [
+        [
+            [
+                "isadult",
+                0
+            ],
+            [
+                "child trade sequence",
+                1
+            ]
+        ],
+        "item_update|child trade sequence"
+    ],
+    "Child Trade Sequence 3": [
+        [
+            [
+                "isadult",
+                0
+            ],
+            [
+                "child trade sequence",
+                2
+            ]
+        ],
+        "item_update|child trade sequence"
+    ],
+    "Adult Trade Sequence 1": [
+        [
+            [
+                [
+                    "isadult",
+                    1
+                ],
+                [
+                    "adult trade sequence",
+                    1
+                ],
+                [
+                    "Hover Boots",
+                    1
+                ]
+            ],
+            [
+                [
+                    "isadult",
+                    1
+                ],
+                [
+                    "adult trade sequence",
+                    1
+                ],
+                [
+                    "Zeldas Lullaby",
+                    1
+                ]
+            ]
+        ],
+        "item_update|adult trade sequence"
+    ],
+    "Adult Trade Sequence 2": [
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "adult trade sequence",
+                2
+            ]
+        ],
+        "item_update|adult trade sequence"
+    ],
+    "Adult Trade Sequence 3": [
+        [
+            [
+                "isadult",
+                1
+            ],
+            [
+                "adult trade sequence",
+                3
+            ],
+            [
+                "has_access|Biggoron",
+                1
+            ]
+        ],
+        "item_update|adult trade sequence"
+    ],
+    "Buy Magical Beans": [
+        [
+            [
+                [
+                    "isadult",
+                    0
+                ],
+                [
+                    "Bomb Bag",
+                    1
+                ],
+                [
+                    "Magic Bean",
+                    0
+                ]
+            ],
+            [
+                [
+                    "isadult",
+                    0
+                ],
+                [
+                    "Progressive Scale",
+                    [
+                        1
+                    ]
+                ],
+                [
+                    "Magic Bean",
+                    0
+                ]
+            ],
+            [
+                [
+                    "isadult",
+                    0
+                ],
+                [
+                    "has_spawn|ZR",
+                    1
+                ]
+            ],
+            [
+                [
+                    "isadult",
+                    0
+                ],
+                [
+                    "has_spawn|ZD",
+                    1
+                ]
+            ]
+        ],
+        "item_update|Magic Bean"
+    ]
+}

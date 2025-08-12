@@ -2,6 +2,7 @@
 Script that handle the ai part of the project.
 """
 
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import math
@@ -13,6 +14,7 @@ from tqdm import tqdm
 from gym import spaces
 from gym.utils import seeding
 
+from data_types import Mode
 from src.logic import (
     get_logic,
     bool_logic,
@@ -407,9 +409,14 @@ class DQNSolver:
                 self.model.fit(state, q_values, verbose=0)
 
 
-def run(dataset, starting_ages, spawns, no_logs, model_path, mode="train"):
+def run(
+    dataset: list[dict[str, str]],
+    starting_ages: list[int],
+    spawns: list[tuple[str, str]],
+    model_path: Path,
+    mode: Mode,
+):
     with tf.device("/GPU:0"):
-        assert mode in ["test", "train"]
         env = OotrEnv()
         observation_space = env.observation_space.shape[0]
         action_space = env.action_space.n
@@ -483,9 +490,9 @@ def run(dataset, starting_ages, spawns, no_logs, model_path, mode="train"):
                             f"Run: {run}, score: {sum_of_rewards}, steps: {dqn_solver.step}"
                         )
                         break
-                    if mode == "train":  # no learning when testing
+                    if mode == Mode.TRAIN.value:  # no learning when testing
                         dqn_solver.experience_replay()
-                if mode == "train":
+                if mode == Mode.TRAIN.value:
                     q_values = pd.DataFrame(
                         np.array(dqn_solver.q_value_evolution),
                         columns=list(get_logic().keys())

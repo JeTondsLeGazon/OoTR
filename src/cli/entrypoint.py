@@ -1,7 +1,9 @@
 import click
+import matplotlib.pyplot as plt
 from pathlib import Path
 from src.files_management import extract_data_from_logs
 from src.ai import run
+from src.data_types import Mode
 
 
 @click.group()
@@ -44,7 +46,17 @@ def train(dataset: Path, number: int, offset: int, model: Path) -> None:
     data, ages, spawns = extract_data_from_logs(
         path=dataset, number=number, offset=offset
     )
-    sums_of_rewards = run(data, ages, spawns, model, "train")
+    sums_of_rewards = run(data, ages, spawns, model, Mode.TRAIN)
+    plot(sums_of_rewards)
+
+
+def plot(scores):
+    plt.figure(figsize=(15, 7))
+    plt.plot(range(len(scores)), [-s for s in scores])
+    plt.xlabel("Number of episodes", size=18)
+    plt.ylabel("Time [s]", size=18)
+    plt.title("Training scores per episode", size=18)
+    plt.savefig("results/training_scores.png")
 
 
 cli.add_command(train)
