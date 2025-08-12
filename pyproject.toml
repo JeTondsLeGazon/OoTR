@@ -3,16 +3,25 @@ name = "ootr"
 version = "0.1.0"
 description = "Project to train a deep reiforcement learning network to calculate optimal paths to finsish Zelda, Ocarina of Time Randomizer (OoTR)"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.13"
 dependencies = [
     "click>=8.2.1",
-    "keras>=3.11.1",
+    "gym>=0.26.2",
+    # "keras>=3.11.1",
     "matplotlib>=3.10.5",
-    "numpy>=2.2.6",
+    # "numpy>=2.2.6",
     "pandas>=2.3.1",
     "ruff>=0.12.8",
+    "tensorflow>=2.19.0",
     "tqdm>=4.67.1",
 ]
 
 [project.scripts]
 ootr = "src.cli.entrypoint:cli"
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+  packages = ["src/"]

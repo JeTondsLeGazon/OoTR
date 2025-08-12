@@ -9,6 +9,7 @@ import logging
 import os
 from tqdm import tqdm
 
+# TODO: update to gymnsasium to support numpy 2.* or pin versions
 from gym import spaces
 from gym.utils import seeding
 
