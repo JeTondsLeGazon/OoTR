@@ -1,94 +1,82 @@
-"""
-This file extracts the information from the spoiler logs via the extract_logs
-function.
-
-"""
-
+from typing import Any
+from pathlib import Path
 import json
-import os
 import logging
-from mylog import logger
 
-def list_files(path):
-    """
-    Returns a sorted list of json files in path.
-    
-    path (str): path to the spoiler log files
-    """
-    return list(sorted([f for f in os.listdir(path=path) if
-                          f.endswith('.json')]))
+logger = logging.getLogger(__name__)
+
+Log = dict[str, Any]  # Define a type alias for the log dictionary structure
 
 
-def extract_json(path, json_files):
-    """
-    Loads json dict from many json files
-    
-    path (str): path to json files
-    json_files (list(str)): json files to extract in the path
-    """
+def extract_json(json_files: list[Path]) -> list[Log]:
+    """Loads json dict from many json files."""
     extracted_dicts = []
     for json_file in json_files:
-        with open(os.path.join(path, json_file)) as f:
-            extracted_dicts.append(json.load(f))
+        try:
+            with json_file.open() as f:
+                extracted_dicts.append(json.load(f))
+        except Exception as e:
+            logger.error(f"Failed to load {json_file}: {e}")
     return extracted_dicts
 
 
-def extract_locations(spoiler_logs):
-    """
-    Extracts the locations from the spoiler logs dicts and checks whether
-    the json files are spoiler logs.
-    
-    spoiler_logs (list(dict)): list of extracted json dicts
-    """
-    locations = []
-    
-    for log in spoiler_logs:  # loop to check the spoiler log with try-except
-        try:
-            locations.append(log['locations'])
-        except KeyError:
-            print("Invalid spoiler log ...")
-    return locations
+def extract_locations(spoiler_logs: list[Log]) -> list[dict[str, str]]:
+    """Extracts the locations from the spoiler logs dicts."""
+    if not all("locations" in log for log in spoiler_logs):
+        raise ValueError("Some logs are missing 'locations' key")
+
+    return [log["locations"] for log in spoiler_logs]
 
 
-def extract_age(spoiler_logs):
-    """
-    Extracts the starting age from the spoiler logs dicts.
-    
-    spoiler_logs (list(dict)): list of extracted json dicts
-    """
-    return [0 if log["randomized_settings"]['starting_age'] == "child" else 1 for log in spoiler_logs]
+def extract_age(spoiler_logs: list[Log]) -> list[int]:
+    """Extracts the starting age from the spoiler logs dicts."""
+    return [
+        0 if log.get("randomized_settings", {}).get("starting_age") == "child" else 1
+        for log in spoiler_logs
+    ]
 
 
-def extract_spawn(spoiler_logs, ages):
-    """
-    Extracts the starting spawns from the spoiler logs dicts.
-    
-    spoiler_logs (list(dict)): list of extracted json dicts
-    """
-    spawns = [[log['entrances']["Child Spawn -> KF Links House"], 
-               log['entrances']["Adult Spawn -> Temple of Time"]] for log in spoiler_logs]
-    
-    return [[xx['region'] if isinstance(xx, dict) else xx for xx in x] for x in spawns]
+def extract_spawn(spoiler_logs: list[Log]) -> list[tuple[str, str]]:
+    """Extracts the starting spawns from the spoiler logs dicts."""
+    spawns = []
+    for log in spoiler_logs:
+        child_spawn = log.get("entrances", {}).get("Child Spawn -> KF Links House")
+        adult_spawn = log.get("entrances", {}).get("Adult Spawn -> Temple of Time")
+        spawns.append(
+            (
+                child_spawn["region"] if isinstance(child_spawn, dict) else child_spawn,
+                adult_spawn["region"] if isinstance(adult_spawn, dict) else adult_spawn,
+            )
+        )
+    return spawns
 
 
-def extract_logs(path, n=1000, from_=0, to=1000):
+def extract_data_from_logs(
+    path: Path, number: int = 1000, offset: int = 0
+) -> tuple[list[dict[str, str]], list[int], list[tuple[str, str]]]:
     """
-    Extracts items location from n spoiler log files and return list of dict.
-    
-    path (str): path to the spoiler log files
-    n (int): maximum number of files to extract
-    Returns: list of dict
+    Extracts items location from n spoiler log files and returns lists.
+    Only processes files in the requested range for efficiency.
     """
-    assert from_ < to, 'from_ must be smaller than to'
-    json_files = list_files(path=path)
-    nb_files = n if n <= len(json_files) else len(json_files)
-    json_files = json_files[:nb_files]
-    
-    spoiler_logs = extract_json(path, json_files)
-    
+    json_files = list(path.glob("*.json"))
+
+    if not json_files:
+        raise FileNotFoundError(f"No JSON files found in {path}")
+
+    if offset < 0 or offset >= len(json_files):
+        raise ValueError(
+            f"Offset {offset} is out of range for the number of files {len(json_files)}"
+        )
+
+    if number <= 0 or offset + number > len(json_files):
+        raise ValueError(
+            f"Number {number} with offset {offset} exceeds the number of available files {len(json_files)}"
+        )
+
+    selected_files = json_files[offset : offset + number]
+    spoiler_logs = extract_json(selected_files)
     locations = extract_locations(spoiler_logs)
-    starting_age = extract_age(spoiler_logs)
-    starting_spawn = extract_spawn(spoiler_logs, starting_age)
-    no_logs = [f.split('-')[-1].split('_Spoiler')[0] for f in json_files]
+    starting_ages = extract_age(spoiler_logs)
+    starting_spawns = extract_spawn(spoiler_logs)
     logger.info(f"Successfully extracted locations from {len(locations)} files")
-    return locations[from_:to], starting_age[from_:to], starting_spawn[from_:to], no_logs[from_:to]
+    return locations, starting_ages, starting_spawns
