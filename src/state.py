@@ -15,7 +15,7 @@ class Item:
 
 class State:
     """
-    Represents the state of the player in the game, including items and their possession and/or upgrades.
+    Represents the state of the player in the game, including its items and their potential upgrades.
     """
 
     def __init__(
@@ -27,8 +27,15 @@ class State:
             for name, max_progression, current_progression in items_pool
         }
         self.current_location = None
+        self._is_adult = None
         self.child_spawn_location = None
         self.adult_spawn_location = None
+
+    @property
+    def is_adult(self) -> bool:
+        if self._is_adult is None:
+            raise ValueError("Age has not been set. Use set_age() to set the age.")
+        return self._is_adult
 
     def item_update(self, item_name: str) -> None:
         item = self.items.get(item_name)
@@ -37,10 +44,10 @@ class State:
         item.update_progression()
 
     def change_age(self) -> None:
-        self.items["isadult"].current_progression ^= 1
+        self._is_adult = not self._is_adult
 
     def set_age(self, age: int) -> None:
-        self.items["isadult"].current_progression = age
+        self._is_adult = bool(age)
 
     def set_initial_items(self, locations):
         self.item_update(locations["starting_items"])

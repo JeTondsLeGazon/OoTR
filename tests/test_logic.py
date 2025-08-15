@@ -1,5 +1,12 @@
-from src.logic import Requirement, requirement_in_logic, requirements_in_logic
-from src.state import State
+from src.logic.utils import (
+    Requirement,
+    in_logic,
+    requirement_in_logic,
+    requirements_in_logic,
+)
+from functools import partial
+from src.logic.callbacks import has_access
+from src.state import Item, State
 
 
 def test_empty_requirement_valid():
@@ -8,21 +15,20 @@ def test_empty_requirement_valid():
     check = []
 
     # Act
-    in_logic = requirements_in_logic(state, check)
+    is_in_logic = requirements_in_logic(state, check)
 
     # Assert
-    assert in_logic is True
+    assert is_in_logic is True
 
 
 def test_is_adult_requirement():
     # Arrange
-    state = State([("isadult", 1, 0)])
+    state = State([])
+    state.set_age(0)
     adult_requirement = Requirement(
-        item="isadult", minimum_upgrade_level=1, exact_upgrade_level=True
+        is_adult=True,
     )
-    child_requirement = Requirement(
-        item="isadult", minimum_upgrade_level=0, exact_upgrade_level=True
-    )
+    child_requirement = Requirement(is_adult=False)
 
     # Act & Assert
     assert requirement_in_logic(state, adult_requirement) is False
@@ -34,7 +40,7 @@ def test_is_adult_requirement():
 
 def test_progressive_item():
     # Arrange
-    state = State(items_pool=[("isadult", 1, 0), ("Progressive Hookshot", 2, 1)])
+    state = State(items_pool=[("Progressive Hookshot", 2, 1)])
     hook_shot_level_0_requirement = Requirement(
         item="Progressive Hookshot", minimum_upgrade_level=0
     )
@@ -55,13 +61,10 @@ def test_progressive_item():
 
 def test_requirements_in_logic():
     # Arrange
-    state = State(items_pool=[("isadult", 1, 0), ("Progressive Hookshot", 2, 1)])
-    adult = Requirement(
-        item="isadult", minimum_upgrade_level=1, exact_upgrade_level=True
-    )
-    child = Requirement(
-        item="isadult", minimum_upgrade_level=0, exact_upgrade_level=True
-    )
+    state = State(items_pool=[("Progressive Hookshot", 2, 1)])
+    state.set_age(0)  # Set to child
+    adult = Requirement(is_adult=True)
+    child = Requirement(is_adult=False)
     longshot = Requirement(item="Progressive Hookshot", minimum_upgrade_level=2)
     hookshot = Requirement(item="Progressive Hookshot", minimum_upgrade_level=1)
 
@@ -71,25 +74,35 @@ def test_requirements_in_logic():
     assert requirements_in_logic(state, [adult, hookshot]) is False
 
 
-# def test_5(self):
-#     state = State(base_items=[])
-#     mylogic = {"Impa at Castle": []}
-#     state, logic=mylogic))
-#
-# def test_6(self):
-#     state = State(
-#         base_items=[("isadult", 1, 1), ("Progressive Hookshot", 2, 2)]
-#     )
-#     mylogic = {
-#         "Gerudo Training Grounds Stalfos Chest": [
-#             ("isadult", 1),
-#             ("has_access|GTG", 1),
-#         ]
-#     }
-#
-#         logic.in_logic(state, logic=mylogic),
-#         ["Gerudo Training Grounds Stalfos Chest"],
-#     )
+def test_current_nb_medallions():
+    # Arrange
+    state = State(items_pool=[])
+    assert state.current_number_medallions() == 0
+
+    # Act
+    state.items["Forest Medallion"] = Item(
+        name="Forest Medallion", max_progression=1, current_progression=1
+    )
+
+    # Asssert
+    assert state.current_number_medallions() == 1
+
+
+def test_in_logic():
+    state = State(items_pool=[("Progressive Hookshot", 2, 2)])
+    state.set_age(1)  # Set to adult
+    mylogic = {
+        "Gerudo Training Grounds Stalfos Chest": [
+            [
+                Requirement(is_adult=True),
+                Requirement(action=partial(has_access, zone="GTG")),
+            ],
+        ]
+    }
+
+    assert in_logic(state, logic=mylogic) == ["Gerudo Training Grounds Stalfos Chest"]
+
+
 #
 # def test_7(self):
 #     state = State(

@@ -67,14 +67,25 @@ def test_item_update_invalid_item(state: State):
 
 def test_change_and_set_age(state: State):
     # Arrange
-    state.items["isadult"].current_progression = 0
+    state.set_age(0)  # Set to child
+    assert state.is_adult is False
 
     # Act
     state.change_age()
 
-    assert state.items["isadult"].current_progression == 1
+    # Assert
+    assert state.is_adult is True
     state.change_age()
-    assert state.items["isadult"].current_progression == 0
+    assert state.is_adult is False
+
+
+def test_age_not_set():
+    # Arrange
+    state = State([])
+
+    # Act & Assert
+    with pytest.raises(ValueError):
+        state.is_adult
 
 
 def test_set_initial_items(state: State):
