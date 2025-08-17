@@ -180,7 +180,7 @@ class OotrEnv:
         self.state.set_adult_spawn(PathFinder.convert_spawn_to_region(spawn[1], 1))
 
         # starting song
-        loc = [
+        locations = [
             "Song from Saria",
             "Sheik in Forest",
             "Song from Ocarina of Time",
@@ -208,7 +208,11 @@ class OotrEnv:
             "Song of Storms",
         ]
 
-        songs_in_log = [self.locations[l] for l in loc if self.locations[l] in songs]
+        songs_in_log = [
+            self.locations[location]
+            for location in locations
+            if self.locations[location] in songs
+        ]
         start_song = list(set(songs) - set(songs_in_log))
         self.state.item_update(start_song[0])
 

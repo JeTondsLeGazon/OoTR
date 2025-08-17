@@ -3,9 +3,9 @@ from src.logic.utils import (
     in_logic,
     requirement_in_logic,
     requirements_in_logic,
+    has_access,
 )
 from functools import partial
-from src.logic.callbacks import has_access
 from src.state import Item, State
 
 
@@ -19,6 +19,22 @@ def test_empty_requirement_valid():
 
     # Assert
     assert is_in_logic is True
+
+
+def test_requirement_from_dict():
+    # Arrange
+    requirement_dict = {
+        "item": "Progressive Hookshot",
+        "minimum_upgrade_level": 1,
+        "is_adult": False,
+        "action": None,
+    }
+
+    # Act
+    requirement = Requirement.from_dict(requirement_dict)
+
+    # Assert
+    assert requirement.item == "Progressive Hookshot"
 
 
 def test_is_adult_requirement():

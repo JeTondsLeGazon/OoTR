@@ -1,0 +1,266 @@
+{
+    "GTG": [
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 2
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Eponas Song",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "action": "has_spawn|GV GF Side"
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "action": "has_spawn|GF"
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Requiem of Spirit",
+                "minimum_upgrade_level": 1
+            }
+        ]
+    ],
+    "Fire": [
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Bolero of Fire",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Hover Boots",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Bomb Bag",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Hover Boots",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Megaton Hammer",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Bomb Bag",
+                "minimum": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Bow",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Hover Boots",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Bow",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Hover Boots",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Progressive Strength Upgrade",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Progressive Strength Upgrade",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 2
+            },
+            {
+                "item": "Megaton Hammer",
+                "minimum_upgrade_level": 1
+            }
+        ]
+    ],
+    "Water": [
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Progressive Scale",
+                "minimum_upgrade_level": 2
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 2
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Iron Boots",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 1
+            }
+        ]
+    ],
+    "Shadow": [
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Nocturne of Shadow",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Dins Fire",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Magic Meter",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Nocturne of Shadow",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Dins Fire",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Magic Meter",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Hover Boots",
+                "minimum_upgrade_level": 1
+            }
+        ]
+    ],
+    "Spirit": [
+        [
+            {
+                "item": "Requiem of Spirit",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "item": "is_adult",
+                "minimum_upgrade_level": 1
+            },
+            {
+                "item": "Progressive Hookshot",
+                "minimum_upgrade_level": 2
+            }
+        ],
+        [
+            {
+                "is_adult": true
+            },
+            {
+                "item": "Eponas Song",
+                "minimum_upgrade_level": 1
+            }
+        ],
+        [
+            {
+                "action": "has_access|GTG"
+            }
+        ]
+    ]
+}
