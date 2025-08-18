@@ -175,11 +175,10 @@ def has_access(zone: str, state: State) -> bool:
     """
     Checks the conditions to access particular zone given a state.
     """
-    dungeons_access = get_dungeons_requirements()
     if zone == "Trials":
         return _bridge_open(MED_BRIDGE, state)
 
-    elif zone in dungeons_access:
+    elif zone in (dungeons_access := get_dungeons_requirements()):
         return any([requirements_in_logic(state, rr) for rr in dungeons_access[zone]])
 
     elif zone == "Biggoron":

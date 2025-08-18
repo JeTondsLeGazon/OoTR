@@ -1,3 +1,4 @@
+import pytest
 from src.logic.utils import (
     Requirement,
     in_logic,
@@ -119,71 +120,84 @@ def test_in_logic():
     assert in_logic(state, logic=mylogic) == ["Gerudo Training Grounds Stalfos Chest"]
 
 
-#
-# def test_7(self):
-#     state = State(
-#         base_items=[("isadult", 1, 1), ("Progressive Hookshot", 2, 2)]
-#     )
-#     mylogic = {
-#         "Ganons Castle Forest Trial Chest": [
-#             ("has_access|Trials", 1),
-#             ("isadult", 1),
-#         ]
-#     }
-#     state, logic=mylogic))
-#
-# def test_8(self):
-#     state = State(
-#         base_items=[
-#             ("isadult", 1, 1),
-#             ("Forest Medallion", 1, 1),
-#             ("Fire Medallion", 1, 1),
-#             ]
-#         )
-#         mylogic = {
-#             "Ganons Castle Forest Trial Chest": [
-#                 ("has_access|Trials", 1),
-#                 ("isadult", 1),
-#             ]
-#         }
-#
-#             logic.in_logic(state, logic=mylogic), ["Ganons Castle Forest Trial Chest"]
-#         )
-#
-# def test_9(self):
-#     state = State(
-#         base_items=[
-#             ("isadult", 1, 1),
-#             ("Forest Medallion", 1, 0),
-#             ("Fire Medallion", 1, 1),
-#         ]
-#     )
-#     mylogic = {
-#         "Ganons Castle Forest Trial Chest": [
-#             ("has_access|Trials", 1),
-#             ("isadult", 1),
-#         ]
-#     }
-#
-#         logic.in_logic(state, logic=mylogic), ["Ganons Castle Forest Trial Chest"]
-#     )
-#
-# def test_10(self):
-#     state = State(base_items=[("isadult", 1, 1), ("Zeldas Lullaby", 1, 1)])
-#     mylogic = {
-#         "Song at Windmill": [("isadult", 1)],
-#         "Song from Composer Grave": [("Zeldas Lullaby", 1)],
-#         "Sheik in Crater": [("has_access|Fire", 1)],
-#         "Song from Malon": [("isadult", 0)],
-#         "Sheik in Ice Cavern": [
-#             [("isadult", 1), ("Rutos Letter", 2), ("Zeldas Lullaby", 1)],
-#             [("isadult", 1), ("Rutos Letter", 2), ("Hover Boots", 1)],
-#         ],
-#         "Kokiri Sword Chest": [("isadult", 0)],
-#     }
-#
-#         logic.in_logic(state, logic=mylogic),
-#         ["Song at Windmill", "Song from Composer Grave"],
-#     )
-#
-#
+@pytest.mark.parametrize(
+    ("medallions", "access"),
+    [
+        ([("Forest Medallion", 1, 1)], False),
+        (
+            [
+                ("Forest Medallion", 1, 1),
+                ("Fire Medallion", 1, 1),
+            ],
+            True,
+        ),
+    ],
+)
+def test_trials_in_logic(medallions: list[tuple[str, int, int]], access: bool):
+    # Arrange
+    state = State(
+        items_pool=[
+            *medallions,
+            ("Progressive Hookshot", 2, 2),
+        ]
+    )
+    state.set_age(1)  # Set to adult
+    mylogic = {
+        "Ganons Castle Forest Trial Chest": [
+            [
+                Requirement(action=partial(has_access, "Trials")),
+                Requirement(is_adult=True),
+            ]
+        ]
+    }
+    expected = ["Ganons Castle Forest Trial Chest"] if access else []
+
+    # Act & Assert
+    assert in_logic(state, logic=mylogic) == expected
+
+
+def test_multi_logic():
+    # Arrange
+    state = State(
+        items_pool=[
+            ("Forest Medallion", 1, 1),
+            ("Fire Medallion", 1, 1),
+            ("Hover Boots", 1, 1),
+        ]
+    )
+    state.set_age(1)  # Set to adult
+    # For test purpose only, logic is wrong
+    mylogic = {
+        "Ganons Castle Forest Trial Chest": [
+            [
+                Requirement(action=partial(has_access, "Trials")),
+                Requirement(is_adult=True),
+                Requirement(item="Hover Boots", minimum_upgrade_level=1),
+            ],
+            [
+                Requirement(action=partial(has_access, "Trials")),
+                Requirement(is_adult=True),
+                Requirement(item="Progressive Hookshotr", minimum_upgrade_level=2),
+            ],
+        ],
+        "Ganons Castle Fire Trial Chest": [
+            [
+                Requirement(action=partial(has_access, "Trials")),
+                Requirement(is_adult=True),
+                Requirement(item="Hover Boots", minimum_upgrade_level=1),
+            ],
+        ],
+        "Ganons Castle Water Trial Chest": [
+            [
+                Requirement(action=partial(has_access, "Trials")),
+                Requirement(is_adult=True),
+                Requirement(item="Progressive Hookshot", minimum_upgrade_level=2),
+            ],
+        ],
+    }
+
+    # Act & Assert
+    assert in_logic(state, logic=mylogic) == [
+        "Ganons Castle Forest Trial Chest",
+        "Ganons Castle Fire Trial Chest",
+    ]
