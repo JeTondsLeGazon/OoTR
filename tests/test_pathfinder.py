@@ -5,6 +5,7 @@ from src.pathfinder import PathFinder
 from src.state import State
 
 
+# TODO: redo tests
 class TestInLogic(unittest.TestCase):
     def test1(self):
         s = State()

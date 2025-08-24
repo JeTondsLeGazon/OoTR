@@ -1,7 +1,7 @@
 import click
 import matplotlib.pyplot as plt
 from pathlib import Path
-from src.files_management import extract_data_from_logs
+from src.spoiler_logs.utils import extract_data_from_logs
 from src.ai import run
 from src.data_types import Mode
 

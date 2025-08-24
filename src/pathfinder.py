@@ -1,11 +1,13 @@
 # TODO: use more region for access (DMC, DMT, Graveyard pad)
 # TODO: castle grounds may be both adult and child !!!
 
-from src.logic import requirements_in_logic
+from typing import TYPE_CHECKING
+from src.logic.utils import requirements_in_logic
 from mylog import logger
 import json
 
-from state import State
+if TYPE_CHECKING:
+    from state import State
 
 with open("resources/location_tables.json", "r") as f:
     locations_table = json.load(f)
@@ -25,7 +27,7 @@ class PathFinder:
     def __init__(self, state: State):
         self.locations_table = locations_table.copy()
         self.locations_to_zones = locations_to_zones
-        self.locations_table.extend(self.savewarp(state))
+        self.locations_table.extend(self.get_savewarp(state))
         if (
             "anywhere",
             "Colossus",
@@ -35,32 +37,32 @@ class PathFinder:
             raise ValueError("Weird location")
         self.locations_table.extend(self.songwarp())
 
-    def convert_to_region(self, place):
-        for k, v in self.locations_to_zones.items():
-            if place in v:
-                return k
-        logger.error(f"No region found for place {place}")
-        return ""
+    def get_region_from_location(self, location: str) -> str:
+        for region, locations in self.locations_to_zones.items():
+            if location in locations:
+                return region
+        raise RuntimeError(f"No region found for place {location}")
 
     @staticmethod
-    def convert_spawn_to_region(place, age=0):
-        region = spawns.get(place)
-        if region is None:
-            logger.error(f"No spawn found for place {place}")
-            return ""
+    def get_region_from_spawn(location: str, age: int = 0) -> str:
+        if location not in spawns:
+            raise ValueError(f"Spawn {location} not found in spawns.json")
 
+        region = spawns.get(location)
         if isinstance(region, dict):
             if age not in region:
-                logger.error(f"No spawn found for place {place} at age {age}")
-                return ""
+                raise ValueError(f"Age {age} not found for spawn {location}")
             return region[age]
 
         return region
 
-    def savewarp(self, state: State):
+    def get_savewarp(
+        self, state: State
+    ) -> list[tuple[str, str, int, list[tuple[str, int]]]]:
         """
         Returns an array input from anywhere to the savewarp zone.
         """
+        # TODO: change this
 
         return [
             ("anywhere", state.child_spawn_location, 10, [("isadult", 0)]),
