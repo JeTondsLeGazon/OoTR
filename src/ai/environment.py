@@ -65,7 +65,9 @@ class OotrEnv:
 
         # Calculate path
         reward, path = self.pathfinder.from_to(
-            self.state.where, self.pathfinder.convert_to_region(action), self.state
+            self.state.where,
+            self.pathfinder.get_region_from_location(action),
+            self.state,
         )
 
         # Calculate malus
@@ -127,7 +129,7 @@ class OotrEnv:
         if reward == -1:
             logger.error(f"Path not found from {self.state.where} to {action}")
 
-        self.state.where = self.pathfinder.convert_to_region(action)
+        self.state.where = self.pathfinder.get_region_from_location(action)
         self.observation = self.calculate_state_observation()
         done = self.state.can_beat_ganon()
 
@@ -147,14 +149,10 @@ class OotrEnv:
         """
         Initialises state according to spoiler log.
         """
-        self.state.current_location = PathFinder.convert_spawn_to_region(spawn[age])
+        self.state.current_location = PathFinder.get_region_from_spawn(spawn[age])
         self.state.set_age(age)
-        self.state.child_spawn_location = PathFinder.convert_spawn_to_region(
-            spawn[0], 0
-        )
-        self.state.adult_spawn_location = PathFinder.convert_spawn_to_region(
-            spawn[1], 1
-        )
+        self.state.child_spawn_location = PathFinder.get_region_from_spawn(spawn[0], 0)
+        self.state.adult_spawn_location = PathFinder.get_region_from_spawn(spawn[1], 1)
 
         # starting song
         locations = [

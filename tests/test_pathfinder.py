@@ -29,7 +29,7 @@ class TestFromTo(unittest.TestCase):
     def test1(self):
         s = State()
         s.set_age(0)
-        s.set_child_spawn(PathFinder.convert_spawn_to_region("Graveyard"))
+        s.set_child_spawn(PathFinder.get_region_from_spawn("Graveyard"))
         s.set_adult_spawn("Temple of Time")
         p = PathFinder(s)
         time, path = p.from_to("GV GF Side", "Graveyard", s)
