@@ -10,7 +10,7 @@ from src.logic.utils import (
     get_additionnal_actions,
 )
 from src.state import State
-from src.pathfinder import PathFinder, locations_to_zones
+from src.pathfinder import PathFinder, zones_to_locations_table
 from src.bonus_malus import compute_bonus, compute_malus
 from mylog import logger
 
@@ -196,7 +196,7 @@ class OotrEnv:
         Computes the state input array for the NN.
         """
         state = [x["current"] for x in self.state.items.values()]
-        regions = list(locations_to_zones.keys())
+        regions = list(zones_to_locations_table.keys())
         binary_width = np.ceil(np.log2(len(regions))).astype(int)
 
         if blank:

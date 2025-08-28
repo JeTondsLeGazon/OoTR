@@ -2,18 +2,12 @@
 # TODO: castle grounds may be both adult and child !!!
 
 from typing import TYPE_CHECKING
-from src.logic.utils import requirements_in_logic
-from mylog import logger
+from src.logic.utils import in_logic
 import json
 
 if TYPE_CHECKING:
     from state import State
 
-with open("resources/location_tables.json", "r") as f:
-    locations_table = json.load(f)
-
-with open("resources/locations_to_zones.json", "r") as f:
-    locations_to_zones = json.load(f)
 
 with open("resources/spawns.json", "r") as f:
     spawns = json.load(f)
@@ -25,9 +19,10 @@ class PathFinder:
     """
 
     def __init__(self, state: State):
-        self.locations_table = locations_table.copy()
-        self.locations_to_zones = locations_to_zones
+        self.locations_table = zones_to_zones_table.copy()
+        self.locations_to_zones = zones_to_locations_table
         self.locations_table.extend(self.get_savewarp(state))
+        # TODO: what is this?
         if (
             "anywhere",
             "Colossus",
@@ -35,7 +30,7 @@ class PathFinder:
             [("Requiem of Spirit", 1)],
         ) in self.locations_table:
             raise ValueError("Weird location")
-        self.locations_table.extend(self.songwarp())
+        self.locations_table.extend(self.get_songwarps())
 
     def get_region_from_location(self, location: str) -> str:
         for region, locations in self.locations_to_zones.items():
@@ -69,7 +64,7 @@ class PathFinder:
             ("anywhere", state.adult_spawn_location, 10, [("isadult", 1)]),
         ]
 
-    def songwarp(self):
+    def get_songwarps(self):
         return [
             ("anywhere", "SFM", 5, [("Minuet of Forest", 1)]),
             ("anywhere", "DMC Lower", 5, [("Bolero of Fire", 1)]),
@@ -104,7 +99,10 @@ class PathFinder:
                         (path[-1] == first or (first == "anywhere" and len(path) == 1))
                         and second not in path
                         and second != "anywhere"
-                        and self.in_logic(state, req, path[-1])
+                        and in_logic(
+                            state,
+                            req,
+                        )
                     ):
                         nexts.append((second, time))
 
@@ -115,7 +113,10 @@ class PathFinder:
                         )
                         and first not in path
                         and first != "anywhere"
-                        and self.in_logic(state, req, path[-1])
+                        and in_logic(
+                            state,
+                            req,
+                        )
                     ):
                         nexts.append((first, time))
 
@@ -130,20 +131,3 @@ class PathFinder:
         return (
             min([[t, p] for p, t in new_paths]) if len(new_paths) != 0 else [-1, []]
         )  # return minimum time
-
-    def in_logic(
-        self, state: State, requirements: list[list], current_location: str
-    ) -> bool:
-        if len(requirements) == 0:
-            return True
-
-        # Only one logic possible
-        if len(requirements) == 1:
-            return requirements_in_logic(state, requirements[0], current_location)
-
-        return any(
-            [
-                requirements_in_logic(state, requirement, current_location)
-                for requirement in requirements
-            ]
-        )

@@ -28,8 +28,8 @@ class State:
         }
         self.current_location = None
         self._is_adult = None
-        self.child_spawn_location = None
-        self.adult_spawn_location = None
+        self.child_spawn_location: str | None = None
+        self.adult_spawn_location: str | None = None
 
     @property
     def is_adult(self) -> bool:
