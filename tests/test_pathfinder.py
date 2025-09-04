@@ -28,36 +28,25 @@ def test_pathfinder_init(state: State):
     assert len(p.locations_to_zones) > 0
 
 
-# class TestInLogic(unittest.TestCase):
-#     def test1(self):
-#         s = State()
-#         s.set_age(1)
-#         s.set_child_spawn("Graveyard")
-#         s.set_adult_spawn("Temple of Time")
-#         s.item_update("Bow")
-#         s.current_location = "GC"
-#         p = PathFinder(s)
-#         req = [
-#             [("Bomb Bag", 1)],
-#             [("isadult", 1), ("Bow", 1), ("is_where|GC", 1)],
-#             [("Dins Fire", 1), ("Magic Meter", 1)],
-#             [("Progressive Strength Upgrade", [1]), ("is_where|GC", 1)],
-#             [("isadult", 1), ("Megaton Hammer", 1)],
-#         ]
-#         self.assertTrue(p.in_logic(s, req, s.current_location))
-#
-#
+def test_get_region_from_spawn():
+    assert PathFinder.get_region_from_spawn("Graveyard") == "Graveyard"
+    assert PathFinder.get_region_from_spawn("Temple of Time") == "Temple of Time"
+    assert PathFinder.get_region_from_spawn("Kak Impas Ledge") == "Kak"
+    assert PathFinder.get_region_from_spawn("Market") == "Market"
+
+
+def test_pathfinder():
+    s = State(items_pool=[])
+    s.set_age(0)
+    s.child_spawn_location = "Graveyard"
+    s.adult_spawn_location = "Temple of Time"
+    p = PathFinder(s)
+    time, path = p.from_to("GV GF Side", "Graveyard", s)
+    assert time == 15
+    assert len(path) == 2
+
+
 # class TestFromTo(unittest.TestCase):
-#     def test1(self):
-#         s = State()
-#         s.set_age(0)
-#         s.set_child_spawn(PathFinder.get_region_from_spawn("Graveyard"))
-#         s.set_adult_spawn("Temple of Time")
-#         p = PathFinder(s)
-#         time, path = p.from_to("GV GF Side", "Graveyard", s)
-#         self.assertLessEqual(time, 15)
-#         self.assertEqual(len(path), 2)
-#
 #     def test2(self):
 #         s = State()
 #         s.set_age(1)

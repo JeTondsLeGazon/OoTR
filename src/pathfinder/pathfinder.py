@@ -1,16 +1,20 @@
 # TODO: use more region for access (DMC, DMT, Graveyard pad)
 # TODO: castle grounds may be both adult and child !!!
 
-from typing import TYPE_CHECKING
-from src.logic.utils import in_logic
+from src.logic.utils import Requirement, requirements_in_logic
 import json
 
-if TYPE_CHECKING:
-    from state import State
+from src.state import State
 
 
 with open("resources/spawns.json", "r") as f:
     spawns = json.load(f)
+
+with open("resources/zones_to_zones.json", "r") as f:
+    zones_to_zones_table = json.load(f)
+
+with open("resources/zone_to_locations.json", "r") as f:
+    zones_to_locations_table = json.load(f)
 
 
 class PathFinder:
@@ -60,11 +64,12 @@ class PathFinder:
         # TODO: change this
 
         return [
-            ("anywhere", state.child_spawn_location, 10, [("isadult", 0)]),
-            ("anywhere", state.adult_spawn_location, 10, [("isadult", 1)]),
+            ("anywhere", state.child_spawn_location, 10, [[{"isadult": False}]]),
+            ("anywhere", state.adult_spawn_location, 10, [[{"isadult": True}]]),
         ]
 
     def get_songwarps(self):
+        # TODO: FIX TEST BY CHANGING THIS
         return [
             ("anywhere", "SFM", 5, [("Minuet of Forest", 1)]),
             ("anywhere", "DMC Lower", 5, [("Bolero of Fire", 1)]),
@@ -94,15 +99,20 @@ class PathFinder:
                     continue
 
                 nexts = []
-                for first, second, time, req in self.locations_table:
+                for first, second, time, requirements_list in self.locations_table:
+                    requirements_are_in_logic = any(
+                        requirements_in_logic(
+                            state,
+                            [Requirement.from_dict(r) for r in requirements],
+                        )
+                        for requirements in requirements_list
+                    )
+
                     if (
                         (path[-1] == first or (first == "anywhere" and len(path) == 1))
                         and second not in path
                         and second != "anywhere"
-                        and in_logic(
-                            state,
-                            req,
-                        )
+                        and requirements_are_in_logic
                     ):
                         nexts.append((second, time))
 
@@ -113,10 +123,7 @@ class PathFinder:
                         )
                         and first not in path
                         and first != "anywhere"
-                        and in_logic(
-                            state,
-                            req,
-                        )
+                        and requirements_are_in_logic
                     ):
                         nexts.append((first, time))
 

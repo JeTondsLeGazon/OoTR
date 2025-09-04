@@ -1,576 +1,602 @@
 [
+  [
+    "HF",
+    "Market",
+    45,
+    []
+  ],
+  [
+    "HF",
+    "GV HF Side",
+    60,
+    []
+  ],
+  [
+    "HF",
+    "LH",
+    75,
+    []
+  ],
+  [
+    "HF",
+    "LLR",
+    45,
+    []
+  ],
+  [
+    "HF",
+    "KF",
+    60,
+    []
+  ],
+  [
+    "HF",
+    "Kak",
+    60,
+    []
+  ],
+  [
+    "HF",
+    "ZR",
+    75,
     [
-        "HF",
-        "Market",
-        45,
-        []
-    ],
-    [
-        "HF",
-        "GV HF Side",
-        60,
-        []
-    ],
-    [
-        "HF",
-        "LH",
-        75,
-        []
-    ],
-    [
-        "HF",
-        "LLR",
-        45,
-        []
-    ],
-    [
-        "HF",
-        "KF",
-        60,
-        []
-    ],
-    [
-        "HF",
-        "Kak",
-        60,
-        []
-    ],
-    [
-        "HF",
-        "ZR",
-        75,
-        [
-            [
-                {
-                    "isadult": true,
-                }
-            ],
-            [
-                {
-                    "isadult": false,
-                },
-                {
-                    "item": "Bomb Bag",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "isadult": false,
-                },
-                {
-                    "action": "is_where|ZR",
-                }
-            ]
-        ]
-    ],
-    [
-        "GV HF Side",
-        "GV GF Side",
-        15,
-        [
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Eponas Song",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Progressive Hookshot",
-                    "minimum_upgrade_level": 2
-                }
-            ],
-            [
-                {
-                    "isadult": false,
-                },
-                {
-                    "action": "is_where|GV HF Side",
-                }
-            ]
-        ]
-    ],
-    [
-        "GV GF Side",
-        "GF",
-        15,
-        []
-    ],
-    [
-        "GF",
-        "Wasteland",
-        60,
-        [
-            {
-                "isadult": true,
-            }
-        ]
-    ],
-    [
-        "GF",
-        "GTG",
-        15,
-        [
-            {
-                "isadult": true,
-            }
-        ]
-    ],
-    [
-        "Colossus",
-        "Wasteland",
-        60,
-        []
-    ],
-    [
-        "Spirit Temple",
-        "Colossus",
-        20,
-        []
-    ],
-    [
-        "GV HF Side",
-        "LH",
-        45,
-        [
-            {
-                "action": "is_where|GV HF Side",
-            }
-        ]
-    ],
-    [
-        "GV GF Side",
-        "LH",
-        45,
-        [
-            {
-                "action": "is_where|GV GF Side",
-            }
-        ]
-    ],
-    [
-        "Water Temple",
-        "LH",
-        30,
-        []
-    ],
-    [
-        "ZD",
-        "LH",
-        30,
-        [
-            {
-                "isadult": false,
-            },
-            {
-                "item": "Progressive Scale",
-                "minimum_upgrade_level": 1
-            }
-        ]
-    ],
-    [
-        "KF",
-        "Deku Tree",
-        30,
-        []
-    ],
-    [
-        "KF",
-        "LW",
-        30,
-        []
-    ],
-    [
-        "LW",
-        "SFM",
-        25,
-        []
-    ],
-    [
-        "Forest Temple",
-        "SFM",
-        30,
-        []
-    ],
-    [
-        "LW",
-        "ZR",
-        25,
-        [
-            [
-                {
-                    "item": "Progressive Scale",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Iron Boots",
-                    "minimum_upgrade_level": 1
-                }
-            ]
-        ]
-    ],
-    [
-        "LW",
-        "GC",
-        25,
-        [
-            [
-                {
-                    "item": "Bomb Bag",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Bow",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "action": "is_where|GC",
-                }
-            ],
-            [
-                {
-                    "item": "Dins Fire",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "item": "Magic Meter",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "item": "Progressive Strength Upgrade",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "action": "is_where|GC",
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Megaton Hammer",
-                    "minimum_upgrade_level": 1
-                }
-            ]
-        ]
-    ],
-    [
-        "ZD",
-        "ZR",
-        45,
-        [
-            [
-                {
-                    "isadult": false,
-                }
-            ],
-            [
-                {
-                    "item": "Zeldas Lullaby",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Hover Boots",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "action": "is_where|ZD",
-                }
-            ]
-        ]
-    ],
-    [
-        "ZD",
-        "ZF",
-        30,
-        [
-            [
-                {
-                    "item": "Rutos Letter",
-                    "minimum_upgrade_level": 2
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                }
-            ]
-        ]
-    ],
-    [
-        "Ice Cavern",
-        "ZF",
-        30,
-        [
-            {
-                "isadult": true,
-            }
-        ]
-    ],
-    [
-        "Jabu Jabus Belly",
-        "ZF",
-        15,
-        [
-            {
-                "isadult": false,
-            }
-        ]
-    ],
-    [
-        "Graveyard",
-        "Kak",
-        20,
-        []
-    ],
-    [
-        "Graveyard",
-        "anywhere",
-        10,
-        [
-            {
-                "item": "Nocturne of Shadow",
-                "minimum_upgrade_level": 1
-            }
-        ]
-    ],
-    [
-        "Shadow Temple",
-        "anywhere",
-        10,
-        [
-            {
-                "item": "Nocturne of Shadow",
-                "minimum_upgrade_level": 1
-            },
-            {
-                "item": "Magic Meter",
-                "minimum_upgrade_level": 1
-            },
-            {
-                "item": "Dins Fire",
-                "minimum_upgrade_level": 1
-            }
-        ]
-    ],
-    [
-        "DMT",
-        "Kak",
-        20,
-        []
-    ],
-    [
-        "DMT",
-        "Dodongos Cavern",
-        20,
-        []
-    ],
-    [
-        "DMT",
-        "GC",
-        20,
-        []
-    ],
-    [
-        "DMC Upper",
-        "GC",
-        20,
-        [
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Bomb Bag",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "action": "is_where|GC",
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Bow",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "action": "is_where|GC",
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Progressive Strength Upgrade",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "action": "is_where|GC",
-                }
-            ],
-            [
-                {
-                    "action": "is_where|DMC Upper",
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Dins Fire",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "item": "Magic Meter",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "action": "is_where|GC",
-                }
-            ]
-        ]
-    ],
-    [
-        "DMC Lower",
-        "DMC Upper",
-        15,
-        [
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Hover Boots",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Progressive Hookshot",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "isadult": true,
-                },
-                {
-                    "item": "Magic Bean",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "action": "is_where|DMC Lower",
-                }
-            ]
-        ]
-    ],
-    [
-        "DMT",
-        "DMC Upper",
-        20,
-        [
-            [
-                {
-                    "item": "Bomb Bag",
-                    "minimum_upgrade_level": 1
-                }
-            ],
-            [
-                {
-                    "item": "Megaton Hammer",
-                    "minimum_upgrade_level": 1
-                },
-                {
-                    "isadult": true,
-                }
-            ]
-        ]
-    ],
-    [
-        "DMC Lower",
-        "Fire Temple",
-        20,
-        [
-            {
-                "isadult": true,
-            }
-        ]
-    ],
-    [
-        "Market",
-        "Hyrule Castle",
-        30,
-        [
-            {
-                "isadult": false,
-            }
-        ]
-    ],
-    [
-        "Market",
-        "Outside Ganons Castle",
-        30,
-        [
-            {
-                "isadult": true,
-            }
-        ]
-    ],
-    [
-        "Ganons Castle",
-        "Outside Ganons Castle",
-        30,
-        [
-            {
-                "isadult": true,
-            }
-        ]
-    ],
-    [
-        "Market",
-        "Temple of Time",
-        30,
-        []
-    ],
-    [
-        "Kak",
-        "Bottom of the Well",
-        10,
-        []
+      [
+        {
+          "isadult": true
+        }
+      ],
+      [
+        {
+          "isadult": false
+        },
+        {
+          "item": "Bomb Bag",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "isadult": false
+        },
+        {
+          "action": "is_where|ZR"
+        }
+      ]
     ]
+  ],
+  [
+    "GV HF Side",
+    "GV GF Side",
+    15,
+    [
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Eponas Song",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Progressive Hookshot",
+          "minimum_upgrade_level": 2
+        }
+      ],
+      [
+        {
+          "isadult": false
+        },
+        {
+          "action": "is_where|GV HF Side"
+        }
+      ]
+    ]
+  ],
+  [
+    "GV GF Side",
+    "GF",
+    15,
+    []
+  ],
+  [
+    "GF",
+    "Wasteland",
+    60,
+    [
+      [
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "GF",
+    "GTG",
+    15,
+    [
+      [
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Colossus",
+    "Wasteland",
+    60,
+    []
+  ],
+  [
+    "Spirit Temple",
+    "Colossus",
+    20,
+    []
+  ],
+  [
+    "GV HF Side",
+    "LH",
+    45,
+    [
+      [
+        {
+          "action": "is_where|GV HF Side"
+        }
+      ]
+    ]
+  ],
+  [
+    "GV GF Side",
+    "LH",
+    45,
+    [
+      [
+        {
+          "action": "is_where|GV GF Side"
+        }
+      ]
+    ]
+  ],
+  [
+    "Water Temple",
+    "LH",
+    30,
+    []
+  ],
+  [
+    "ZD",
+    "LH",
+    30,
+    [
+      [
+        {
+          "isadult": false
+        },
+        {
+          "item": "Progressive Scale",
+          "minimum_upgrade_level": 1
+        }
+      ]
+    ]
+  ],
+  [
+    "KF",
+    "Deku Tree",
+    30,
+    []
+  ],
+  [
+    "KF",
+    "LW",
+    30,
+    []
+  ],
+  [
+    "LW",
+    "SFM",
+    25,
+    []
+  ],
+  [
+    "Forest Temple",
+    "SFM",
+    30,
+    []
+  ],
+  [
+    "LW",
+    "ZR",
+    25,
+    [
+      [
+        {
+          "item": "Progressive Scale",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Iron Boots",
+          "minimum_upgrade_level": 1
+        }
+      ]
+    ]
+  ],
+  [
+    "LW",
+    "GC",
+    25,
+    [
+      [
+        {
+          "item": "Bomb Bag",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Bow",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "action": "is_where|GC"
+        }
+      ],
+      [
+        {
+          "item": "Dins Fire",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "item": "Magic Meter",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "item": "Progressive Strength Upgrade",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "action": "is_where|GC"
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Megaton Hammer",
+          "minimum_upgrade_level": 1
+        }
+      ]
+    ]
+  ],
+  [
+    "ZD",
+    "ZR",
+    45,
+    [
+      [
+        {
+          "isadult": false
+        }
+      ],
+      [
+        {
+          "item": "Zeldas Lullaby",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Hover Boots",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "action": "is_where|ZD"
+        }
+      ]
+    ]
+  ],
+  [
+    "ZD",
+    "ZF",
+    30,
+    [
+      [
+        {
+          "item": "Rutos Letter",
+          "minimum_upgrade_level": 2
+        }
+      ],
+      [
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Ice Cavern",
+    "ZF",
+    30,
+    [
+      [
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Jabu Jabus Belly",
+    "ZF",
+    15,
+    [
+      [
+        {
+          "isadult": false
+        }
+      ]
+    ]
+  ],
+  [
+    "Graveyard",
+    "Kak",
+    20,
+    []
+  ],
+  [
+    "Graveyard",
+    "anywhere",
+    10,
+    [
+      [
+        {
+          "item": "Nocturne of Shadow",
+          "minimum_upgrade_level": 1
+        }
+      ]
+    ]
+  ],
+  [
+    "Shadow Temple",
+    "anywhere",
+    10,
+    [
+      [
+        {
+          "item": "Nocturne of Shadow",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "item": "Magic Meter",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "item": "Dins Fire",
+          "minimum_upgrade_level": 1
+        }
+      ]
+    ]
+  ],
+  [
+    "DMT",
+    "Kak",
+    20,
+    []
+  ],
+  [
+    "DMT",
+    "Dodongos Cavern",
+    20,
+    []
+  ],
+  [
+    "DMT",
+    "GC",
+    20,
+    []
+  ],
+  [
+    "DMC Upper",
+    "GC",
+    20,
+    [
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Bomb Bag",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "action": "is_where|GC"
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Bow",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "action": "is_where|GC"
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Progressive Strength Upgrade",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "action": "is_where|GC"
+        }
+      ],
+      [
+        {
+          "action": "is_where|DMC Upper"
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Dins Fire",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "item": "Magic Meter",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "action": "is_where|GC"
+        }
+      ]
+    ]
+  ],
+  [
+    "DMC Lower",
+    "DMC Upper",
+    15,
+    [
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Hover Boots",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Progressive Hookshot",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "isadult": true
+        },
+        {
+          "item": "Magic Bean",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "action": "is_where|DMC Lower"
+        }
+      ]
+    ]
+  ],
+  [
+    "DMT",
+    "DMC Upper",
+    20,
+    [
+      [
+        {
+          "item": "Bomb Bag",
+          "minimum_upgrade_level": 1
+        }
+      ],
+      [
+        {
+          "item": "Megaton Hammer",
+          "minimum_upgrade_level": 1
+        },
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "DMC Lower",
+    "Fire Temple",
+    20,
+    [
+      [
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Market",
+    "Hyrule Castle",
+    30,
+    [
+      [
+        {
+          "isadult": false
+        }
+      ]
+    ]
+  ],
+  [
+    "Market",
+    "Outside Ganons Castle",
+    30,
+    [
+      [
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Ganons Castle",
+    "Outside Ganons Castle",
+    30,
+    [
+      [
+        {
+          "isadult": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Market",
+    "Temple of Time",
+    30,
+    []
+  ],
+  [
+    "Kak",
+    "Bottom of the Well",
+    10,
+    []
+  ]
 ]

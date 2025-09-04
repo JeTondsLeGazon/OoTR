@@ -31,6 +31,8 @@ class Requirement:
 
     @classmethod
     def from_dict(cls, data: dict) -> Requirement:
+        if not isinstance(data, dict):
+            raise ValueError(f"Data must be a dictionary: {data}")
         action_zone = data.get("action")
         callback = None
         if action_zone is not None:
